@@ -91,20 +91,6 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play"
-            android:id="@+id/play_button"
-            android:textColor="#ffffff"
-            android:layout_marginTop="74dp"
-            android:background="@drawable/circle"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-        </Button>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Round"
             android:id="@+id/round_button"
             android:textColor="#ffffff"
@@ -134,62 +120,75 @@
 
         </Button>
 
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Attribution"
             android:id="@+id/attribution_button"
             android:textColor="#ffffff"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="44dp"
             android:background="@drawable/circle"
             android:layout_below="@+id/rule_button"
-            android:layout_alignRight="@+id/play_button"
-            android:layout_alignEnd="@+id/play_button"
-            android:layout_marginRight="6dp"
-            android:layout_marginEnd="6dp">
+            android:layout_alignLeft="@+id/rule_button"
+            android:layout_alignStart="@+id/rule_button">
 
         </Button>
 
-
-        <ImageView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tetris_z_block"
-            android:id="@+id/orangeImageview"
-            android:layout_alignBottom="@+id/play_button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="17dp"
-            android:layout_marginEnd="17dp" />
+            android:text="Play"
+            android:id="@+id/play_button"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="22dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tetris_l_block"
-            android:id="@+id/yellowImageview"
-            android:layout_alignTop="@+id/play_button"
-            android:layout_toRightOf="@+id/play_button"
-            android:layout_toEndOf="@+id/play_button"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/red_block"
-            android:id="@+id/redImageview"
-            android:layout_alignTop="@+id/round_button"
-            android:layout_alignLeft="@+id/yellowImageview"
-            android:layout_alignStart="@+id/yellowImageview" />
+        </Button>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/tetris_t_block"
             android:id="@+id/greenImageview"
-            android:layout_above="@+id/rule_button"
-            android:layout_alignLeft="@+id/orangeImageview"
-            android:layout_alignStart="@+id/orangeImageview" />
+            android:layout_alignTop="@+id/play_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/tetris_z_block"
+            android:id="@+id/orangeImageview"
+            android:layout_alignTop="@+id/round_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="21dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/tetris_l_block"
+            android:id="@+id/yellowImageview"
+            android:layout_toLeftOf="@+id/orangeImageview"
+            android:layout_toStartOf="@+id/orangeImageview"
+            android:layout_above="@+id/orangeImageview" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/red_block"
+            android:id="@+id/redImageview"
+            android:layout_alignTop="@+id/orangeImageview"
+            android:layout_toLeftOf="@+id/yellowImageview"
+            android:layout_toStartOf="@+id/yellowImageview" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -150,44 +150,47 @@
 
         </Button>
 
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tetris_z_block"
-            android:id="@+id/orangeImageview"
-            android:layout_alignBottom="@+id/play_button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="17dp"
-            android:layout_marginEnd="17dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tetris_l_block"
-            android:id="@+id/yellowImageview"
-            android:layout_alignTop="@+id/play_button"
-            android:layout_toRightOf="@+id/play_button"
-            android:layout_toEndOf="@+id/play_button"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/red_block"
+            android:layout_alignBottom="@+id/play_button"
+            android:layout_marginBottom="22dp"
             android:id="@+id/redImageview"
-            android:layout_alignTop="@+id/round_button"
-            android:layout_alignLeft="@+id/yellowImageview"
-            android:layout_alignStart="@+id/yellowImageview" />
+            android:layout_alignLeft="@+id/greenImageview"
+            android:layout_alignStart="@+id/greenImageview" />
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/tetris_t_block"
             android:id="@+id/greenImageview"
-            android:layout_above="@+id/rule_button"
+            android:layout_below="@+id/redImageview"
+            android:layout_toRightOf="@+id/play_button"
+            android:layout_toEndOf="@+id/play_button"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/tetris_z_block"
+            android:id="@+id/orangeImageview"
+            android:layout_alignTop="@+id/play_button"
+            android:layout_toRightOf="@+id/greenImageview"
+            android:layout_toEndOf="@+id/greenImageview"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="14dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/tetris_l_block"
+            android:id="@+id/yellowImageview"
+            android:layout_above="@+id/orangeImageview"
             android:layout_alignLeft="@+id/orangeImageview"
             android:layout_alignStart="@+id/orangeImageview" />
 

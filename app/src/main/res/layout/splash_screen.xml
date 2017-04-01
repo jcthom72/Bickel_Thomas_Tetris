@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris.SplashScreen"
-    android:background="#000000">
+    android:background="#002E63">
 
     <ImageView
         android:layout_width="wrap_content"
