@@ -6,9 +6,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button round;
     private Button rules;
     private Button attribution;
+    private TranslateAnimation translateAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        TranslateAnimation translateAnimation =
+        Log.i("OnResume", "animations started");
+        translateAnimation =
                 new TranslateAnimation(Animation.RESTART, 0,
                         Animation.RESTART, 1,
                         Animation.RESTART, 0, Animation.RESTART, 15);
@@ -61,12 +65,25 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         AnimationSet setAnimation = new AnimationSet(true);
         setAnimation.addAnimation(translateAnimation);
 
+        // http://stackoverflow.com/questions/1634252/how-to-make-a-smooth-image-rotation-in-android
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                red.animate().rotationBy(360).withEndAction(this).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
+                L.animate().rotationBy(360).withEndAction(this).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
+                T.animate().rotationBy(360).withEndAction(this).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
+                Z.animate().rotationBy(360).withEndAction(this).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
+            }
+        };
 
-        red.startAnimation(translateAnimation);
-        L.startAnimation(translateAnimation);
-        T.startAnimation(translateAnimation);
-        Z.startAnimation(translateAnimation);
-
+        red.startAnimation(setAnimation);
+        red.animate().rotationBy(360).withEndAction(runnable);
+        L.startAnimation(setAnimation);
+        L.animate().rotationBy(360).withEndAction(runnable);
+        T.startAnimation(setAnimation);
+        T.animate().rotationBy(360).withEndAction(runnable);
+        Z.startAnimation(setAnimation);
+        red.animate().rotationBy(360).withEndAction(runnable);
     }
 
 
@@ -129,5 +146,15 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             TextView tv = (TextView) dialog.findViewById(android.R.id.message);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        red.clearAnimation();
+        L.clearAnimation();
+        T.clearAnimation();
+        Z.clearAnimation();
+        Log.i("OnPause", "animations cleared");
     }
 }

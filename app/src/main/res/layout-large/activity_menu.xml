@@ -187,8 +187,10 @@
             app:srcCompat="@drawable/red_block"
             android:id="@+id/redImageview"
             android:layout_alignTop="@+id/orangeImageview"
-            android:layout_toLeftOf="@+id/yellowImageview"
-            android:layout_toStartOf="@+id/yellowImageview" />
+            android:layout_toLeftOf="@+id/orangeImageview"
+            android:layout_toStartOf="@+id/orangeImageview"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp" />
 
     </RelativeLayout>
 </LinearLayout>
