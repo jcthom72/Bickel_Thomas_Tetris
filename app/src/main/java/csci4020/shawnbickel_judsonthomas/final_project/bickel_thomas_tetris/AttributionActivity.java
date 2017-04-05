@@ -31,17 +31,12 @@ public class AttributionActivity extends AppCompatActivity implements View.OnCli
         M_Straight = (TextView) findViewById(R.id.StraightLine_Image);
         ShawnBickel = (TextView) findViewById(R.id.ShawnBickelRepo);
         JudsonThomas = (TextView) findViewById(R.id.JudsonThomasRepo);
-        setLinkProperties(ShawnBickel, R.string.Shawn_Bickel);
-        setLinkProperties(JudsonThomas, R.string.Judson_Thomas);
-        setLinkProperties(M_Square, R.string.squareTetris);
-        setLinkProperties(splashScreen, R.string.splashScreen);
-        setLinkProperties(M_T, R.string.t_Tetris);
-        setLinkProperties(M_Z, R.string.z_Tetris);
-        setLinkProperties(M_L, R.string.l_Tetris);
-        setLinkProperties(M_Straight, R.string.straight_Tetris);
-
 
         TextView[] imageLinks = {splashScreen, M_Square, M_T, M_Z, M_L, M_Straight, ShawnBickel, JudsonThomas};
+
+        for (TextView properties : imageLinks){
+            setLinkProperties(properties, properties.getText().toString());
+        }
         for (TextView images : imageLinks){
             images.setOnClickListener(this);
         }
@@ -101,7 +96,7 @@ public class AttributionActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void setLinkProperties (TextView textView, int text){
+    private void setLinkProperties (TextView textView, String text){
         textView.setPaintFlags(splashScreen.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         textView.setText(text);
         textView.setTextColor(getResources().getColor(R.color.Alizarin));

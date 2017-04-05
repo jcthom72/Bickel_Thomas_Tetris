@@ -9,24 +9,10 @@
     <string name="Judson_Thomas">Judson Thomas</string>
     <string name="Shawn_Bickel">Shawn Bickel</string>
     <string name="round">Round</string>
-    <string name="rules">When one of the five tetrominos appears at the top of the screen, the user can place the piece in any location they so choose.
-    The tetromino will fall at a constant rate and will increase in speed if the user chooses a specific locaiton. The pieces can be rotated by tapping
-    the respective piece. The pieces cannot be raised upwards. The tetromino pieces will fall until they meet some form of resistance, either the bottom
-    of the screen or another tetromino block. The blocks will constitute a stack composed of multiple rows as the game progresses.The object of the game
-        is to attempt to prevent the stacked tetrominos from reaching the top of the screen. Once the stack reaches the top of the screen, the game is
-        over. When users fill an entire row with tetris blocks, the entire row is cleared, the blocks above that row are dropped downwards, and the user will
-    receive an increase in score.</string>
-
-    <string-array name="game_levels">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-    </string-array>
+    <string name="rules">\u2022 When one of the five tetrominos appears at the top of the screen, the user can place the piece in any location they so choose.
+    \n\n\u2022 The tetromino will fall at a constant rate and will increase in speed if the user chooses a specific locaiton.\n\n\u2022 The pieces can be rotated by tapping
+    the respective piece. \n\n\u2022 The pieces cannot be raised upwards. \n\n\u2022 The tetromino pieces will fall until they meet some form of resistance, either the bottom
+    of the screen or another tetromino block. \n\n\u2022 The blocks will constitute a stack composed of multiple rows as the game progresses. \n\n\u2022 When users fill an
+        entire row with tetris blocks, the entire row is cleared, the blocks above that row are dropped downwards, and the user will receive an increase in score. \n\n\u2022 The object of the game
+        is to attempt to prevent the stacked tetrominos from reaching the top of the screen. Once the stack reaches the top of the screen, the game is over. </string>
 </resources>
