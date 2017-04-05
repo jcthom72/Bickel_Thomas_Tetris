@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_rules"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris.Rules"
+    android:background="#002E63">
+
+    <TextView
+        android:text="Rules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/textView10"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:paddingTop="5dp" />
+
+    <TextView
+        android:text="@string/rules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:id="@+id/textView11"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:paddingLeft="20dp"
+        android:paddingRight="5dp" />
+</LinearLayout>

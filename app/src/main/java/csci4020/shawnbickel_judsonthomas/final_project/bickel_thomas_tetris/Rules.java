@@ -3,14 +3,11 @@ package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
-
-    private TetrisGameEngine tetrisGameEngine;
+public class Rules extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        tetrisGameEngine = (TetrisGameEngine) findViewById(R.id.tetrisLayout);
+        setContentView(R.layout.activity_rules);
     }
 }

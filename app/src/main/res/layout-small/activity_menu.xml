@@ -91,32 +91,19 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play"
-            android:id="@+id/play_button"
-            android:textColor="#ffffff"
-            android:layout_marginTop="74dp"
-            android:background="@drawable/circle"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-        </Button>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Round"
+            android:text="@string/round"
+            android:textAlignment="center"
             android:id="@+id/round_button"
             android:textColor="#ffffff"
             android:layout_marginTop="30dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/menu_buttons"
             android:layout_below="@+id/play_button"
             android:layout_alignRight="@+id/play_button"
             android:layout_alignEnd="@+id/play_button"
             android:layout_marginRight="6dp"
             android:layout_marginEnd="6dp">
 
-        </Button>
+        </Button>>
 
         <Button
             android:layout_width="wrap_content"
@@ -125,7 +112,7 @@
             android:id="@+id/rule_button"
             android:textColor="#ffffff"
             android:layout_marginTop="30dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/menu_buttons"
             android:layout_below="@+id/round_button"
             android:layout_alignRight="@+id/play_button"
             android:layout_alignEnd="@+id/play_button"
@@ -141,7 +128,7 @@
             android:id="@+id/attribution_button"
             android:textColor="#ffffff"
             android:layout_marginTop="30dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/menu_buttons"
             android:layout_below="@+id/rule_button"
             android:layout_alignRight="@+id/play_button"
             android:layout_alignEnd="@+id/play_button"
@@ -150,49 +137,70 @@
 
         </Button>
 
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"
+            android:id="@+id/play_button"
+            android:textColor="#ffffff"
+            android:layout_marginTop="58dp"
+            android:background="@drawable/menu_buttons"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+        </Button>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/red_block"
-            android:layout_alignBottom="@+id/play_button"
-            android:layout_marginBottom="22dp"
-            android:id="@+id/redImageview"
-            android:layout_alignLeft="@+id/greenImageview"
-            android:layout_alignStart="@+id/greenImageview" />
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tetris_t_block"
-            android:id="@+id/greenImageview"
-            android:layout_below="@+id/redImageview"
+            app:srcCompat="@drawable/z_tetromino"
+            android:id="@+id/Z_Tetromino"
+            android:layout_alignBottom="@+id/round_button"
             android:layout_toRightOf="@+id/play_button"
-            android:layout_toEndOf="@+id/play_button"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="10dp" />
+            android:layout_toEndOf="@+id/play_button" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tetris_z_block"
-            android:id="@+id/orangeImageview"
-            android:layout_alignTop="@+id/play_button"
-            android:layout_toRightOf="@+id/greenImageview"
-            android:layout_toEndOf="@+id/greenImageview"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp" />
+            app:srcCompat="@drawable/square_t"
+            android:id="@+id/Square_Tetromino"
+            android:layout_toRightOf="@+id/play_button"
+            android:layout_above="@+id/round_button" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tetris_l_block"
-            android:id="@+id/yellowImageview"
-            android:layout_above="@+id/orangeImageview"
-            android:layout_alignLeft="@+id/orangeImageview"
-            android:layout_alignStart="@+id/orangeImageview" />
+            app:srcCompat="@drawable/l_tetromino"
+            android:id="@+id/L_Tetromino"
+            android:layout_toRightOf="@+id/Square_Tetromino"
+            android:layout_alignTop="@+id/Square_Tetromino"
+            android:layout_alignRight="@+id/I_Tetromino"
+            android:layout_alignEnd="@+id/I_Tetromino" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/t_tetromino"
+            android:id="@+id/T_Tetromino"
+            android:layout_below="@+id/I_Tetromino"
+            android:layout_toRightOf="@+id/Z_Tetromino"
+            android:layout_alignTop="@+id/round_button"
+            android:layout_marginTop="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/i_tetromino"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="9dp"
+            android:layout_marginEnd="9dp"
+            android:id="@+id/I_Tetromino"
+            android:layout_below="@+id/Square_Tetromino" />
 
     </RelativeLayout>
 </LinearLayout>
