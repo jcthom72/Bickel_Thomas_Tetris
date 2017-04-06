@@ -30,6 +30,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button attribution;
     private TranslateAnimation translateAnimation;
     private TetrisGameEngine tetrisGameEngine;
+    private ImageView[] images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         attribution = (Button) findViewById(R.id.attribution_button);
 
         Button[] buttons = {play, round, rules, attribution};
+        images = new ImageView[]{Square, L, T, Z, I};
 
         for (Button button : buttons){
             button.setOnClickListener(this);
@@ -74,24 +76,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Square.animate().rotationBy(360).withEndAction(this).setDuration(1000).setInterpolator(new LinearInterpolator()).start();
-                L.animate().rotationBy(360).withEndAction(this).setDuration(1000).setInterpolator(new LinearInterpolator()).start();
-                T.animate().rotationBy(360).withEndAction(this).setDuration(1000).setInterpolator(new LinearInterpolator()).start();
-                Z.animate().rotationBy(360).withEndAction(this).setDuration(1000).setInterpolator(new LinearInterpolator()).start();
-                I.animate().rotationBy(360).withEndAction(this).setDuration(1000).setInterpolator(new LinearInterpolator()).start();
+
+                for (ImageView img : images){
+                    img.animate().rotationBy(360).withEndAction(this).setDuration(1000).setInterpolator(new LinearInterpolator()).start();
+                }
             }
         };
 
-        Square.startAnimation(setAnimation);
-        Square.animate().rotationBy(360).withEndAction(runnable);
-        I.startAnimation(setAnimation);
-        I.animate().rotationBy(360).withEndAction(runnable);
-        L.startAnimation(setAnimation);
-        L.animate().rotationBy(360).withEndAction(runnable);
-        T.startAnimation(setAnimation);
-        T.animate().rotationBy(360).withEndAction(runnable);
-        Z.startAnimation(setAnimation);
-        Z.animate().rotationBy(360).withEndAction(runnable);
+        for (ImageView img : images){
+            img.startAnimation(setAnimation);
+            img.animate().rotationBy(360).withEndAction(runnable);
+        }
 
     }
 

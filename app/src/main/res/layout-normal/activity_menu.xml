@@ -154,20 +154,40 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:srcCompat="@drawable/l_tetromino"
+            android:id="@+id/L_Tetromino"
+            android:layout_above="@+id/Z_Tetromino"
+            android:layout_toStartOf="@+id/T_Tetromino"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/z_tetromino"
             android:id="@+id/Z_Tetromino"
-            android:layout_alignBottom="@+id/round_button"
-            android:layout_toRightOf="@+id/play_button"
-            android:layout_alignRight="@+id/Square_Tetromino"
-            android:layout_alignEnd="@+id/Square_Tetromino" />
+            android:layout_alignTop="@+id/round_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/i_tetromino"
+            android:id="@+id/I_Tetromino"
+            android:layout_below="@+id/Z_Tetromino"
+            android:layout_toRightOf="@+id/round_button"
+            android:layout_marginLeft="47dp"
+            android:layout_marginStart="47dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/square_t"
             android:id="@+id/Square_Tetromino"
-            android:layout_toLeftOf="@+id/T_Tetromino"
-            android:layout_alignBottom="@+id/I_Tetromino"
+            android:layout_alignBottom="@+id/rule_button"
             android:layout_toRightOf="@+id/play_button"
             android:layout_toEndOf="@+id/play_button" />
 
@@ -176,35 +196,9 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/t_tetromino"
             android:id="@+id/T_Tetromino"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/Z_Tetromino"
-            android:layout_toRightOf="@+id/round_button"
-            android:layout_toEndOf="@+id/round_button" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/l_tetromino"
-            android:id="@+id/L_Tetromino"
-            android:layout_alignTop="@+id/Square_Tetromino"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/I_Tetromino"
-            android:layout_toRightOf="@+id/Square_Tetromino"
-            android:layout_toStartOf="@+id/I_Tetromino"
-            android:layout_alignRight="@+id/I_Tetromino"
-            android:layout_alignEnd="@+id/I_Tetromino" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/i_tetromino"
-            android:id="@+id/I_Tetromino"
-            android:layout_below="@+id/play_button"
-            android:layout_toRightOf="@+id/Square_Tetromino"
-            android:layout_toEndOf="@+id/Square_Tetromino"
-            android:layout_marginLeft="6dp"
-            android:layout_marginStart="6dp" />
+            android:layout_above="@+id/round_button"
+            android:layout_toRightOf="@+id/play_button"
+            android:layout_toEndOf="@+id/play_button" />
 
     </RelativeLayout>
 </LinearLayout>

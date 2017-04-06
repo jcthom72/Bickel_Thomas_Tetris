@@ -36,9 +36,7 @@ public class AttributionActivity extends AppCompatActivity implements View.OnCli
 
         for (TextView properties : imageLinks){
             setLinkProperties(properties, properties.getText().toString());
-        }
-        for (TextView images : imageLinks){
-            images.setOnClickListener(this);
+            properties.setOnClickListener(this);
         }
 
     }
