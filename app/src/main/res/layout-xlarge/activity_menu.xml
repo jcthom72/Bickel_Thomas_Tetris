@@ -96,12 +96,13 @@
             android:id="@+id/round_button"
             android:textColor="#ffffff"
             android:layout_marginTop="30dp"
-            android:background="@drawable/menu_buttons"
+            android:background="@drawable/large_menu_buttons"
             android:layout_below="@+id/play_button"
             android:layout_alignRight="@+id/play_button"
             android:layout_alignEnd="@+id/play_button"
             android:layout_marginRight="6dp"
-            android:layout_marginEnd="6dp">
+            android:layout_marginEnd="6dp"
+            android:textSize="24sp">
 
         </Button>
 
@@ -112,28 +113,13 @@
             android:id="@+id/rule_button"
             android:textColor="#ffffff"
             android:layout_marginTop="30dp"
-            android:background="@drawable/menu_buttons"
+            android:background="@drawable/large_menu_buttons"
             android:layout_below="@+id/round_button"
             android:layout_alignRight="@+id/play_button"
             android:layout_alignEnd="@+id/play_button"
             android:layout_marginRight="6dp"
-            android:layout_marginEnd="6dp">
-
-        </Button>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Attribution"
-            android:id="@+id/attribution_button"
-            android:textColor="#ffffff"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/menu_buttons"
-            android:layout_below="@+id/rule_button"
-            android:layout_alignRight="@+id/play_button"
-            android:layout_alignEnd="@+id/play_button"
-            android:layout_marginRight="6dp"
-            android:layout_marginEnd="6dp">
+            android:layout_marginEnd="6dp"
+            android:textSize="24sp">
 
         </Button>
 
@@ -145,10 +131,25 @@
             android:id="@+id/play_button"
             android:textColor="#ffffff"
             android:layout_marginTop="58dp"
-            android:background="@drawable/menu_buttons"
+            android:background="@drawable/large_menu_buttons"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:textSize="24sp">
+
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attribution"
+            android:id="@+id/attribution_button"
+            android:textColor="#ffffff"
+            android:background="@drawable/large_menu_buttons"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="24sp">
 
         </Button>
 
@@ -156,55 +157,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/square_t"
-            android:layout_below="@+id/play_button"
+            android:layout_alignTop="@+id/round_button"
             android:layout_toRightOf="@+id/round_button"
             android:layout_toEndOf="@+id/round_button"
-            android:layout_marginLeft="207dp"
-            android:layout_marginStart="207dp"
+            android:layout_marginLeft="73dp"
+            android:layout_marginStart="73dp"
+            android:layout_marginTop="41dp"
             android:id="@+id/Square_Tetromino" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/t_tetromino"
-            android:layout_alignTop="@+id/Square_Tetromino"
+            android:layout_above="@+id/rule_button"
             android:layout_toRightOf="@+id/Square_Tetromino"
             android:layout_toEndOf="@+id/Square_Tetromino"
-            android:layout_marginLeft="120dp"
-            android:layout_marginStart="120dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginStart="65dp"
             android:id="@+id/T_Tetromino" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:srcCompat="@drawable/l_tetromino"
+            android:layout_alignTop="@+id/rule_button"
+            android:layout_alignLeft="@+id/Square_Tetromino"
+            android:layout_alignStart="@+id/Square_Tetromino"
+            android:id="@+id/L_Tetromino" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/i_tetromino"
-            android:layout_below="@+id/round_button"
-            android:layout_alignRight="@+id/Square_Tetromino"
-            android:layout_alignEnd="@+id/Square_Tetromino"
-            android:layout_marginRight="117dp"
-            android:layout_marginEnd="117dp"
-            android:layout_marginTop="16dp"
+            android:layout_below="@+id/L_Tetromino"
+            android:layout_alignLeft="@+id/T_Tetromino"
+            android:layout_alignStart="@+id/T_Tetromino"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
             android:id="@+id/I_Tetromino" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/z_tetromino"
-            android:layout_below="@+id/rule_button"
-            android:layout_alignLeft="@+id/Square_Tetromino"
-            android:layout_alignStart="@+id/Square_Tetromino"
-            android:id="@+id/Z_Tetromino" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/l_tetromino"
-            android:id="@+id/L_Tetromino"
-            android:layout_alignTop="@+id/I_Tetromino"
-            android:layout_alignRight="@+id/T_Tetromino"
-            android:layout_alignEnd="@+id/T_Tetromino"
-            android:layout_marginRight="51dp"
-            android:layout_marginEnd="51dp" />
+            android:id="@+id/Z_Tetromino"
+            android:layout_below="@+id/Square_Tetromino"
+            android:layout_toRightOf="@+id/I_Tetromino"
+            android:layout_toEndOf="@+id/I_Tetromino" />
 
     </RelativeLayout>
 </LinearLayout>

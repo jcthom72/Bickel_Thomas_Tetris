@@ -26,7 +26,9 @@
         <activity
             android:name=".AttributionActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".Rules"></activity>
+        <activity android:name=".Rules"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

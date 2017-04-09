@@ -34,61 +34,6 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/l_Tetris"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/L_image"
-        android:textColor="#ffffff"
-        android:layout_below="@+id/SplashScreenTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="6dp" />
-
-    <TextView
-        android:text="@string/z_Tetris"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Z_Image"
-        android:textColor="#ffffff"
-        android:layout_below="@+id/L_image"
-        android:layout_alignRight="@+id/SplashScreenTextView"
-        android:layout_alignEnd="@+id/SplashScreenTextView"
-        android:layout_marginTop="7dp" />
-
-    <TextView
-        android:text="@string/squareTetris"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Square_Image"
-        android:textColor="#ffffff"
-        android:layout_marginTop="7dp"
-        android:layout_below="@+id/T_image"
-        android:layout_alignRight="@+id/textView8"
-        android:layout_alignEnd="@+id/textView8" />
-
-    <TextView
-        android:text="@string/t_Tetris"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/T_image"
-        android:textColor="#ffffff"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/Z_Image"
-        android:layout_alignLeft="@+id/Z_Image"
-        android:layout_alignStart="@+id/Z_Image" />
-
-    <TextView
-        android:text="@string/straight_Tetris"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:clickable="true"
-        android:id="@+id/StraightLine_Image"
-        android:layout_marginTop="8dp"
-        android:layout_below="@+id/Square_Image"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8" />
-
-    <TextView
         android:text="@string/splashScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,19 +61,6 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="Developers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView12"
-        android:textSize="18sp"
-        android:textColor="#ffffff"
-        android:paddingTop="20dp"
-        android:layout_marginTop="96dp"
-        android:layout_below="@+id/StraightLine_Image"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="10dp" />
-
-    <TextView
         android:text="@string/Judson_Thomas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,4 +75,92 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:text="@string/t_Tetris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/T_image"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/Z_Image"
+        android:layout_alignLeft="@+id/L_image"
+        android:layout_alignStart="@+id/L_image" />
+
+    <TextView
+        android:text="@string/l_Tetris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/L_image"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/SplashScreenTextView"
+        android:layout_alignLeft="@+id/SplashScreenTextView"
+        android:layout_alignStart="@+id/SplashScreenTextView" />
+
+    <TextView
+        android:text="@string/pause_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/pause_button"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/play_button"
+        android:layout_alignLeft="@+id/play_button"
+        android:layout_alignStart="@+id/play_button" />
+
+    <TextView
+        android:text="@string/z_Tetris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Z_Image"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/L_image"
+        android:layout_alignRight="@+id/L_image"
+        android:layout_alignEnd="@+id/L_image" />
+
+    <TextView
+        android:text="@string/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/play_button"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/Square_Image"
+        android:layout_alignRight="@+id/Square_Image"
+        android:layout_alignEnd="@+id/Square_Image" />
+
+    <TextView
+        android:text="@string/straight_Tetris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:clickable="true"
+        android:id="@+id/StraightLine_Image"
+        android:layout_below="@+id/pause_button"
+        android:layout_alignLeft="@+id/pause_button"
+        android:layout_alignStart="@+id/pause_button" />
+
+    <TextView
+        android:text="@string/squareTetris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Square_Image"
+        android:textColor="#ffffff"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/T_image"
+        android:layout_alignLeft="@+id/Z_Image"
+        android:layout_alignStart="@+id/Z_Image" />
+
+    <TextView
+        android:text="Developers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:paddingTop="20dp"
+        android:layout_marginTop="56dp"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/StraightLine_Image"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
+

@@ -16,6 +16,8 @@ public class AttributionActivity extends AppCompatActivity implements View.OnCli
     private TextView M_Z;
     private TextView M_L;
     private TextView M_Straight;
+    private TextView play;
+    private TextView pause;
     private TextView ShawnBickel;
     private TextView JudsonThomas;
 
@@ -29,10 +31,13 @@ public class AttributionActivity extends AppCompatActivity implements View.OnCli
         M_Z = (TextView) findViewById(R.id.Z_Image);
         M_L = (TextView) findViewById(R.id.L_image);
         M_Straight = (TextView) findViewById(R.id.StraightLine_Image);
+        play = (TextView) findViewById(R.id.play_button);
+        pause = (TextView) findViewById(R.id.pause_button);
         ShawnBickel = (TextView) findViewById(R.id.ShawnBickelRepo);
         JudsonThomas = (TextView) findViewById(R.id.JudsonThomasRepo);
 
-        TextView[] imageLinks = {splashScreen, M_Square, M_T, M_Z, M_L, M_Straight, ShawnBickel, JudsonThomas};
+        TextView[] imageLinks = {splashScreen, M_Square, M_T, M_Z, M_L, M_Straight, ShawnBickel,
+                JudsonThomas, play, pause};
 
         for (TextView properties : imageLinks){
             setLinkProperties(properties, properties.getText().toString());
@@ -92,6 +97,17 @@ public class AttributionActivity extends AppCompatActivity implements View.OnCli
             startActivity(a);
         }
 
+        else if (view.getId() == R.id.play_button){
+            Uri uri = Uri.parse("https://openclipart.org/detail/31003/tango-media-start");
+            Intent a = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(a);
+        }
+
+        else if (view.getId() == R.id.pause_button){
+            Uri uri = Uri.parse("https://openclipart.org/detail/31009/tango-media-pause");
+            Intent a = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(a);
+        }
     }
 
     private void setLinkProperties (TextView textView, String text){

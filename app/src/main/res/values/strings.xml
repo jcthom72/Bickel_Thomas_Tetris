@@ -6,6 +6,8 @@
     <string name="z_Tetris">Menu Z Tetris Block</string>
     <string name="l_Tetris">Menu L Tetris Block</string>
     <string name="straight_Tetris">Menu Straight Line Tetris Block</string>
+    <string name="play_button">Game Activity Play Button</string>
+    <string name="pause_button">Game Activity Pause Button</string>
     <string name="Judson_Thomas">Judson Thomas</string>
     <string name="Shawn_Bickel">Shawn Bickel</string>
     <string name="round">Round</string>

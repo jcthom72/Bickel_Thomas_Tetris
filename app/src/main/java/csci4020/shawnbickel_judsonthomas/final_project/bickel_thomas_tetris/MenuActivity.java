@@ -127,7 +127,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
-            builder.show();
+            builder.create().show();
 
         }
 
@@ -146,11 +146,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        Square.clearAnimation();
-        I.clearAnimation();
-        L.clearAnimation();
-        T.clearAnimation();
-        Z.clearAnimation();
+        for (ImageView img : images){
+            img.clearAnimation();
+        }
         Log.i("OnPause", "animations cleared");
     }
 }
