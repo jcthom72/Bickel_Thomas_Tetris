@@ -29,14 +29,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button rules;
     private Button attribution;
     private TranslateAnimation translateAnimation;
-    private TetrisGameEngine tetrisGameEngine;
+    private TetrisGameView tetrisGameView;
     private ImageView[] images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        tetrisGameEngine = new TetrisGameEngine(this);
+        tetrisGameView = new TetrisGameView(this);
         Square = (ImageView) findViewById(R.id.Square_Tetromino);
         L = (ImageView) findViewById(R.id.L_Tetromino);
         T = (ImageView) findViewById(R.id.T_Tetromino);

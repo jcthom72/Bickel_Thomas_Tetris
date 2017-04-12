@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TetrisGameEngine tetrisGameEngine;
+    private TetrisGameView tetrisGameView;
     private ImageView playButton;
     private ImageView pauseButton;
 
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tetrisGameEngine = (TetrisGameEngine) findViewById(R.id.tetrisLayout);
+        tetrisGameView = (TetrisGameView) findViewById(R.id.tetrisLayout);
         playButton = (ImageView) findViewById(R.id.play_button);
         pauseButton = (ImageView) findViewById(R.id.pause_button);
     }
