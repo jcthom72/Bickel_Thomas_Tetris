@@ -129,6 +129,23 @@ public class TetrisGameEngine{
 
     }
 
+    /*
+        tetromino terminology
+        anchor position: the position of the topmost, leftmost block in the
+            tetromino. used as an anchor position when generating a tetromino piece
+            to determine the location of all other blocks in the piece relative to it.
+            Also, tetrominos are spawned into their gameboard specified by their anchor position.
+
+        pivot: the block in the tetromino piece which serves as the axis point that all
+            other blocks in the tetromino piece rotate around when performing a clockwise /
+            counterclockwise rotation. The pivot point is different for each tetromino piece; will create
+            a diagram to show which point is the pivot point for each tetromino. (For L/J pieces it's the
+            block at the joint/elbow; for S/Z pieces it's the block at the top joint/elbow; for T pieces it's
+            the block in the bottom middle; for O pieces there is no pivot (rotation of an O piece does nothing);
+            for I pieces it's the second block from the left (when laid horizontal).
+
+        nudge: a translation of 1 unit in an upward, downward, left, or right direction.
+    */
     public abstract class Tetromino implements Nudgeable, Rotatable{
         protected HashSet<Block> blocks;
         protected BlockColor color;
