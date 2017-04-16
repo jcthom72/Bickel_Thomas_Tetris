@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Bickel_Thomas_Tetris</string>
+    <string name="app_name">Tetris</string>
+    <string name="splashScreen">Splash Screen Image</string>
+    <string name="squareTetris">Menu Square Tetris Block</string>
+    <string name="t_Tetris">Menu T Tetris Block</string>
+    <string name="z_Tetris">Menu Z Tetris Block</string>
+    <string name="l_Tetris">Menu L Tetris Block</string>
+    <string name="straight_Tetris">Menu Straight Line Tetris Block</string>
+    <string name="play_button">Game Activity Play Button</string>
+    <string name="pause_button">Game Activity Pause Button</string>
+    <string name="Judson_Thomas">Judson Thomas</string>
+    <string name="Shawn_Bickel">Shawn Bickel</string>
+    <string name="round">Round</string>
+    <string name="rules">\u2022 When one of the five tetrominos appears at the top of the screen, the user can place the piece in any location they so choose.
+    \n\n\u2022 The tetromino will fall at a constant rate and will increase in speed if the user chooses a specific locaiton.\n\n\u2022 The pieces can be rotated by tapping
+    the respective piece. \n\n\u2022 The pieces cannot be raised upwards. \n\n\u2022 The tetromino pieces will fall until they meet some form of resistance, either the bottom
+    of the screen or another tetromino block. \n\n\u2022 The blocks will constitute a stack composed of multiple rows as the game progresses. \n\n\u2022 When users fill an
+        entire row with tetris blocks, the entire row is cleared, the blocks above that row are dropped downwards, and the user will receive an increase in score. \n\n\u2022 The object of the game
+        is to attempt to prevent the stacked tetrominos from reaching the top of the screen. Once the stack reaches the top of the screen, the game is over. </string>
 </resources>
