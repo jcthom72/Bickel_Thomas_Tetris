@@ -1,6 +1,7 @@
 package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 /*backend game engine class for tetris game - judson thomas*/
@@ -23,7 +24,7 @@ public class TetrisGameEngine{
     most often these positions represent absolute (x,y) coordinates into the grid; however,
     in some cases the positions are treated as vectors <x,y>. Which type of position is
     represented will be clear from the context of its usage.*/
-    private class Position{
+    public class Position{
         private int x;
         private int y;
 
@@ -91,9 +92,20 @@ public class TetrisGameEngine{
         private Position addVector(Position vector){
             return new Position(x+vector.x, y+vector.y);
         }
+
+        /*Given a pixel scaling factor of "xPixelScalingFactor", returns the location of the leftmost
+        * pixel that would correspond to this position's x value. Typically the "xPixelScalingFactor"
+        * will be the block image width for the tetris game's view.*/
+        public int getXPixelPos(int xPixelScalingFactor){
+            return x * xPixelScalingFactor;
+        }
+
+        public int getYPixelPos(int yPixelScalingFactor){
+            return y * yPixelScalingFactor;
+        }
     };
 
-    private class Block implements Nudgeable, Rotatable{
+    public class Block implements Nudgeable, Rotatable{
         private BlockColor color;
         private Position position;
 
@@ -127,6 +139,11 @@ public class TetrisGameEngine{
             return true;
         }
 
+        public final Position getPosition(){
+            return position;
+        }
+
+        public BlockColor getColor(){return color;}
     }
 
     /*
@@ -146,7 +163,7 @@ public class TetrisGameEngine{
 
         nudge: a translation of 1 unit in an upward, downward, left, or right direction.
     */
-    public abstract class Tetromino implements Nudgeable, Rotatable{
+    public abstract class Tetromino implements Nudgeable, Rotatable, Iterable<Block>{
         protected HashSet<Block> blocks;
         protected BlockColor color;
         protected Block pivot; //blocks rotate around pivot
@@ -227,6 +244,11 @@ public class TetrisGameEngine{
         }
 
         public BlockColor getColor(){return color;}
+
+        @Override
+        public Iterator<Block> iterator() {
+            return blocks.iterator();
+        }
     }
 
     public class IShape extends Tetromino{
@@ -376,7 +398,7 @@ public class TetrisGameEngine{
 		within the blockMap. This interface is unsafe because it provides
 		no additional error checking to ensure the integrity of the block map; e.g.
 		a block could be added into a position where a block already exists, overwriting
-		the previous block. However, in some cases this might be necessary. Special care must
+		the previous block. However, this is necessary in some cases. Special care must
 		be taken by the caller to ensure that the integrity of the blockMap will be maintained.*/
 
         private void removeBlock_unsafe(Position position){
@@ -496,4 +518,8 @@ public class TetrisGameEngine{
     public TetrisGameEngine(int numRows, int numCols){
         blockMap = new BlockMap(numRows, numCols);
     }
+
+    public int getNumRows(){return blockMap.numRows;}
+
+    public int getNumCols(){return blockMap.numCols;}
 }
