@@ -1,10 +1,12 @@
 package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         playButton = (ImageView) findViewById(R.id.play_button);
         pauseButton = (ImageView) findViewById(R.id.pause_button);
-
+        tetrisGameView = (TetrisGameView) findViewById(R.id.tetrisLayout);
         tetrisGameDriver = new TetrisDriver(new TetrisGameEngine(10, 10), tetrisGameView);
 
         //FOR TESTING: using score label text as a left button
@@ -52,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tetrisGameDriver.move(TetrisGameEngine.Direction.UP);
+                tetrisGameDriver.nextTetromino();
+                //tetrisGameDriver.move(TetrisGameEngine.Direction.UP);
             }
         });
 
-        tetrisGameDriver.nextTetromino();
+        //somehow next tetromino gets called before onsizechanged for our view????????????
+        //tetrisGameDriver.nextTetromino();
     }
 }

@@ -28,14 +28,14 @@ public class TetrisDriver {
     }
 
     private void updateCurrentGraphicsPosition(){
-        if(currentTetrominoGraphics.length != 5){
+        if(currentTetrominoGraphics.length != 4){
             return;
         }
 
         Iterator<TetrisGameEngine.Block> blockItr = currentTetromino.iterator();
         TetrisGameEngine.Block currentBlock;
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 4; i++){
             currentBlock = blockItr.next();
             currentTetrominoGraphics[i].updatePos(currentBlock.getPosition().getXPixelPos(view.getBlockPixelWidth()),
                 currentBlock.getPosition().getYPixelPos(view.getBlockPixelHeight()));
@@ -53,18 +53,18 @@ public class TetrisDriver {
 
         TetrisGameEngine.TetrominoType randomType;
         randomType = tetrominoTypes[tetrominoGen.nextInt(tetrominoTypes.length)];
-        currentTetromino = game.spawn(randomType);
-
+        //-----------------DEBUG// currentTetromino = game.spawn(randomType);
+        /*-----------------DEBUG*/currentTetromino = game.spawn(TetrisGameEngine.TetrominoType.ISHAPE);
         if(currentTetromino == null){
             //GAME HAS ENDED; SPAWN LOCATION IS OBSTRUCTED
             return false;
         }
 
-        currentTetrominoGraphics = new TetrisGameView.GraphicBlock[5];
+        currentTetrominoGraphics = new TetrisGameView.GraphicBlock[4];
         Iterator<TetrisGameEngine.Block> blockItr = currentTetromino.iterator();
         TetrisGameEngine.Block currentBlock;
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 4; i++){
             currentBlock = blockItr.next();
             currentTetrominoGraphics[i] = view.createGraphicBlock(currentTetromino.getColor(),
                     currentBlock.getPosition().getXPixelPos(view.getBlockPixelWidth()),
@@ -86,9 +86,9 @@ public class TetrisDriver {
 
         switch(direction){
             case UP: animation = view.upAnimation; break;
-            case DOWN: animation = view.upAnimation; break;
-            case LEFT: animation = view.upAnimation; break;
-            case RIGHT: animation = view.upAnimation; break;
+            case DOWN: animation = view.downAnimation; break;
+            case LEFT: animation = view.leftAnimation; break;
+            case RIGHT: animation = view.rightAnimation; break;
             default: return false; //invalid direction
         }
 
