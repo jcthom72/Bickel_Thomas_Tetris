@@ -16,6 +16,10 @@ import java.util.Random;
  */
 
 public class TetrisGameView extends View{
+    public TetrisGameView(Context context) {
+        super(context);
+    }
+
     private class GraphicBlock{
         int x; //x pixel location of block's left side
         int y; //y pixel location of block's top side
