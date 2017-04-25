@@ -249,11 +249,16 @@ public class TetrisGameEngine{
         public Iterator<Block> iterator() {
             return blocks.iterator();
         }
+
+        protected Tetromino(BlockColor color){
+            this.color = color;
+            blocks = new HashSet<Block>(4); //create with an initial capacity of 4
+        }
     }
 
     public class IShape extends Tetromino{
         private IShape(Position anchorPosition){
-            color = BlockColor.GREEN;
+            super(BlockColor.GREEN);
             Block block = new Block(color, anchorPosition);
             blocks.add(block);
 
@@ -271,7 +276,7 @@ public class TetrisGameEngine{
 
     public class OShape extends Tetromino{
         private OShape(Position anchorPosition){
-            color = BlockColor.RED;
+            super(BlockColor.RED);
             Block block = new Block(color, anchorPosition);
             blocks.add(block);
 
@@ -295,7 +300,7 @@ public class TetrisGameEngine{
 
     public class TShape extends Tetromino{
         private TShape(Position anchorPosition){
-            color = BlockColor.YELLOW;
+            super(BlockColor.YELLOW);
             Block block = new Block(color, anchorPosition);
             blocks.add(block);
 
@@ -313,7 +318,7 @@ public class TetrisGameEngine{
 
     public class JShape extends Tetromino{
         private JShape(Position anchorPosition){
-            color = BlockColor.BLUE;
+            super(BlockColor.BLUE);
             Block block = new Block(color, anchorPosition);
             blocks.add(block);
 
@@ -331,7 +336,7 @@ public class TetrisGameEngine{
 
     public class LShape extends Tetromino{
         private LShape(Position anchorPosition){
-            color = BlockColor.PURPLE;
+            super(BlockColor.PURPLE);
             Block block = new Block(color, anchorPosition);
             pivot = block;
             blocks.add(block);
@@ -349,7 +354,7 @@ public class TetrisGameEngine{
 
     public class SShape extends Tetromino{
         private SShape(Position anchorPosition){
-            color = BlockColor.GOLD;
+            super(BlockColor.GOLD);
             Block block = new Block(color, anchorPosition);
             pivot = block;
             blocks.add(block);
@@ -367,7 +372,7 @@ public class TetrisGameEngine{
 
     public class ZShape extends Tetromino{
         private ZShape(Position anchorPosition){
-            color = BlockColor.CYAN;
+            super(BlockColor.CYAN);
             Block block = new Block(color, anchorPosition);
             blocks.add(block);
 

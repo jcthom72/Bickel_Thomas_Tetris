@@ -18,9 +18,10 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
         android:weightSum="4"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:layout_weight=".1">
 
         <TextView
             android:text="Score: "
@@ -63,10 +64,11 @@
     </LinearLayout>
 
     <csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris.TetrisGameView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#002E63"
-        android:id="@+id/tetrisLayout" />
+        android:id="@+id/tetrisLayout"
+        android:layout_weight=".9" />
 
 
 </LinearLayout>

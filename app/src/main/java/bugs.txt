@@ -1,0 +1,1 @@
+-game cannot spawn a JShape piece (detects out of range)
