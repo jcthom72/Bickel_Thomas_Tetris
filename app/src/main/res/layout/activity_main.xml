@@ -63,6 +63,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:weightSum="4"
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:layout_weight=".1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="CW"
+            android:id="@+id/CW" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="CCW"
+            android:id="@+id/CCW" />
+    </LinearLayout>
+
+
     <csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris.TetrisGameView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -2,18 +2,11 @@ package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.AttributeSet;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
-import android.view.animation.RotateAnimation;
 
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Random;
 
 import static android.graphics.BitmapFactory.decodeResource;
 
@@ -51,13 +44,13 @@ public class TetrisGameView extends View{
         int movementStep;
         int currentFrame;
 
-        private BlockAnimation(int numFrames, int movementStep){
+        protected BlockAnimation(int numFrames, int movementStep){
             updateNumFrames(numFrames);
             this.movementStep = movementStep;
             this.currentFrame = 1;
         }
 
-        private void reset(){
+        public void reset(){
             currentFrame = 1;
         }
 
@@ -71,26 +64,18 @@ public class TetrisGameView extends View{
         //applies a single frame worth of animation to "blockToAnimate", given the
         //specified frame action
         private void animateFrame(GraphicBlock blockToAnimate){
-            if(currentFrame < numFrames) {
+            if(currentFrame <= numFrames) {
                 frameAction(blockToAnimate);
             }
             currentFrame++;
         }
     }
 
-    public abstract class VerticalTranslation extends BlockAnimation{
-        private VerticalTranslation(){
-            super(blockImgHeight, 1);
+    public static class UpTranslation extends BlockAnimation{
+        public UpTranslation(int numFrames, int movementStep){
+            super(numFrames, movementStep);
         }
-    }
 
-    public abstract class HorizontalTranslation extends BlockAnimation{
-        private HorizontalTranslation(){
-            super(blockImgWidth, 1);
-        }
-    }
-
-    public class UpTranslation extends VerticalTranslation{
         @Override
         protected void frameAction(GraphicBlock blockToAnimate){
             blockToAnimate.y -= movementStep;
@@ -98,28 +83,40 @@ public class TetrisGameView extends View{
         }
     }
 
-    public class DownTranslation extends VerticalTranslation{
+    public static class DownTranslation extends BlockAnimation{
+        public DownTranslation(int numFrames, int movementStep){
+            super(numFrames, movementStep);
+        }
+
         @Override
         protected void frameAction(GraphicBlock blockToAnimate){
             blockToAnimate.y += movementStep;
         }
     }
 
-    public class LeftTranslation extends HorizontalTranslation{
+    public static class LeftTranslation extends BlockAnimation{
+        public LeftTranslation(int numFrames, int movementStep){
+            super(numFrames, movementStep);
+        }
+
         @Override
         protected void frameAction(GraphicBlock blockToAnimate){
             blockToAnimate.x -= movementStep;
         }
     }
 
-    public class RightTranslation extends HorizontalTranslation{
+    public static class RightTranslation extends BlockAnimation{
+        public RightTranslation(int numFrames, int movementStep){
+            super(numFrames, movementStep);
+        }
+
         @Override
         protected void frameAction(GraphicBlock blockToAnimate){
             blockToAnimate.x += movementStep;
         }
     }
 
-    public class Rotation extends BlockAnimation{
+    public static class Rotation extends BlockAnimation{
         private Rotation(){
             super(1, 0);
         }
@@ -140,10 +137,12 @@ public class TetrisGameView extends View{
 
     private final LinkedList<GraphicBlock> blocksToDraw = new LinkedList<GraphicBlock>();
 
+    /*
     public final UpTranslation upAnimation = new UpTranslation();
     public final DownTranslation downAnimation = new DownTranslation();
     public final LeftTranslation leftAnimation = new LeftTranslation();
     public final RightTranslation rightAnimation = new RightTranslation();
+    */
     //public final Rotation ccwRotateAnimation = new Rotation();
     //public final Rotation cwRotateAnimation = new Rotation();
 
@@ -220,10 +219,10 @@ public class TetrisGameView extends View{
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         updateScaledBitmaps();
-        upAnimation.updateNumFrames(blockImgHeight);
+        /*upAnimation.updateNumFrames(blockImgHeight);
         downAnimation.updateNumFrames(blockImgHeight);
         leftAnimation.updateNumFrames(blockImgWidth);
-        rightAnimation.updateNumFrames(blockImgWidth);
+        rightAnimation.updateNumFrames(blockImgWidth);*/
         updateScreen();
     }
 
@@ -239,6 +238,7 @@ public class TetrisGameView extends View{
             //animate each block passed in by a single frame
             for (GraphicBlock graphicBlock : blocksToAnimate) {
                 animation.animateFrame(graphicBlock);
+                animation.reset();
             }
             //update the screen
             updateScreen();
@@ -247,7 +247,7 @@ public class TetrisGameView extends View{
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE); /*for testing, just draw a boring white background
+        canvas.drawColor(getResources().getColor(R.color.appMainColor)); /*for testing, just draw a boring white background
             later we can make our own background, or draw a grid or something*/
         for(GraphicBlock block : blocksToDraw){
             canvas.drawBitmap(block.blockImg, block.x, block.y, null);

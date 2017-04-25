@@ -1,7 +1,5 @@
 package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
-import android.content.Context;
-
 import java.util.Iterator;
 import java.util.Random;
 
@@ -46,15 +44,16 @@ public class TetrisDriver {
     }
 
     public boolean nextTetromino(){
-        if(currentTetromino != null){ //either the current tetromino piece
+        //COMMENTED OUT FOR TESTING
+        /*if(currentTetromino != null){ //either the current tetromino piece
             //was never spawned or it has not yet landed
             return false;
-        }
+        }*/
 
         TetrisGameEngine.TetrominoType randomType;
         randomType = tetrominoTypes[tetrominoGen.nextInt(tetrominoTypes.length)];
-        //-----------------DEBUG// currentTetromino = game.spawn(randomType);
-        /*-----------------DEBUG*/currentTetromino = game.spawn(TetrisGameEngine.TetrominoType.ISHAPE);
+        currentTetromino = game.spawn(randomType);
+        ///*-----------------DEBUG*/currentTetromino = game.spawn(TetrisGameEngine.TetrominoType.ISHAPE);
         if(currentTetromino == null){
             //GAME HAS ENDED; SPAWN LOCATION IS OBSTRUCTED
             return false;
@@ -85,10 +84,15 @@ public class TetrisDriver {
         TetrisGameView.BlockAnimation animation;
 
         switch(direction){
+            /*
             case UP: animation = view.upAnimation; break;
             case DOWN: animation = view.downAnimation; break;
             case LEFT: animation = view.leftAnimation; break;
-            case RIGHT: animation = view.rightAnimation; break;
+            case RIGHT: animation = view.rightAnimation; break;*/
+            case UP: animation = new TetrisGameView.UpTranslation(1, view.getBlockPixelHeight()); break;
+            case DOWN: animation = new TetrisGameView.DownTranslation(1, view.getBlockPixelHeight()); break;
+            case LEFT: animation = new TetrisGameView.LeftTranslation(1, view.getBlockPixelWidth()); break;
+            case RIGHT: animation = new TetrisGameView.RightTranslation(1, view.getBlockPixelWidth()); break;
             default: return false; //invalid direction
         }
 
@@ -99,6 +103,9 @@ public class TetrisDriver {
 
         //animate the current tetromino's graphic block images
         view.animate(currentTetrominoGraphics, animation);
+
+        //reset the animation, allowing
+        animation.reset();
         return true;
     }
 
