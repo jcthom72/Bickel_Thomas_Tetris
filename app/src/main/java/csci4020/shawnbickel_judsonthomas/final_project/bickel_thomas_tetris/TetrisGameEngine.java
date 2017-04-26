@@ -2,7 +2,6 @@ package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Random;
 
 /*backend game engine class for tetris game - judson thomas*/
 
@@ -35,8 +34,8 @@ public class TetrisGameEngine{
 
         private Position left(){return new Position(x-1, y);}
         private Position right(){return new Position(x+1, y);}
-        private Position above(){return new Position(x, y+1);}
-        private Position below(){return new Position(x-1, y-1);}
+        private Position above(){return new Position(x, y-1);}
+        private Position below(){return new Position(x, y+1);}
 
         private Position inDirection(Direction direction){
             switch(direction){
@@ -439,8 +438,8 @@ public class TetrisGameEngine{
         }
 
         private boolean isInRange(Position position){
-            if(position.x < 0 || position.x > numCols ||
-                    position.y < 0 || position.y > numRows){
+            if(position.x < 0 || position.x >= numCols ||
+                    position.y < 0 || position.y >= numRows){
                 return false;
             }
             return true;

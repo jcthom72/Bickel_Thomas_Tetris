@@ -1,12 +1,11 @@
 package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,10 +19,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button CW = (Button) findViewById(R.id.CW);
+        Button CCW = (Button) findViewById(R.id.CCW);
         playButton = (ImageView) findViewById(R.id.play_button);
         pauseButton = (ImageView) findViewById(R.id.pause_button);
         tetrisGameView = (TetrisGameView) findViewById(R.id.tetrisLayout);
         tetrisGameDriver = new TetrisDriver(new TetrisGameEngine(10, 10), tetrisGameView);
+
+        CW.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CW_90);
+            }
+        });
+
+        CCW.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CCW_90);
+            }
+        });
 
         //FOR TESTING: using score label text as a left button
         TextView leftButton = (TextView) findViewById(R.id.textView9);
