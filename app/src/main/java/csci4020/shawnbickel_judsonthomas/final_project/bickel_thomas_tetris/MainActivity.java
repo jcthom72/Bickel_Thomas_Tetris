@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button CW = (Button) findViewById(R.id.CW);
         Button CCW = (Button) findViewById(R.id.CCW);
+        Button UP = (Button) findViewById(R.id.UP);
         playButton = (ImageView) findViewById(R.id.play_button);
         pauseButton = (ImageView) findViewById(R.id.pause_button);
         tetrisGameView = (TetrisGameView) findViewById(R.id.tetrisLayout);
@@ -37,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CCW_90);
+            }
+        });
+
+        UP.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                tetrisGameDriver.move(TetrisGameEngine.Direction.UP);
             }
         });
 
@@ -74,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //somehow next tetromino gets called before onsizechanged for our view????????????
-        //tetrisGameDriver.nextTetromino();
+
+        tetrisGameView.initialize(10, 10);
     }
 }

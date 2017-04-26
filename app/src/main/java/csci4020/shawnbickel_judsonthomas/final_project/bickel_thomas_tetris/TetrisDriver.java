@@ -77,22 +77,25 @@ public class TetrisDriver {
 
 
     public boolean move(TetrisGameEngine.Direction direction){
+        /*if there is no piece to nudge*/
         if(currentTetromino == null){
             return false;
+        }
+
+        /*if the screen is currently animating we do not allow a move to occur;
+        * we may change this in the future to allow queueing of moves (probably with
+        * a max queue size of 2 (up to one move can be queued while another move is occurring)*/
+        if(view.isCurrentlyAnimating()){
+            return false; //********returning false here could potentially create errors when determining if a piece has landed because of ambiguity********
         }
 
         TetrisGameView.BlockAnimation animation;
 
         switch(direction){
-            /*
-            case UP: animation = view.upAnimation; break;
-            case DOWN: animation = view.downAnimation; break;
-            case LEFT: animation = view.leftAnimation; break;
-            case RIGHT: animation = view.rightAnimation; break;*/
-            case UP: animation = new TetrisGameView.UpTranslation(1, view.getBlockPixelHeight()); break;
-            case DOWN: animation = new TetrisGameView.DownTranslation(1, view.getBlockPixelHeight()); break;
-            case LEFT: animation = new TetrisGameView.LeftTranslation(1, view.getBlockPixelWidth()); break;
-            case RIGHT: animation = new TetrisGameView.RightTranslation(1, view.getBlockPixelWidth()); break;
+            case UP: animation = new TetrisGameView.UpTranslation(view.getBlockPixelHeight(), 1, 300); break;
+            case DOWN: animation = new TetrisGameView.DownTranslation(view.getBlockPixelHeight(), 1, 300); break;
+            case LEFT: animation = new TetrisGameView.LeftTranslation(view.getBlockPixelWidth(), 1, 300); break;
+            case RIGHT: animation = new TetrisGameView.RightTranslation(view.getBlockPixelWidth(), 1, 300); break;
             default: return false; //invalid direction
         }
 
