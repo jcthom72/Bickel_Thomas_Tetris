@@ -52,12 +52,13 @@ public class TetrisGameEngine{
             }
         }
 
-        /*calculates a vector which represents the displacement (relative position)
-        from "anchor" to this position; where relative_position = this_position - anchor_position;
-        i.e. anchor_position + relative_position = this_position;
+        /*calculates a vector from "this" to "target" which represents the displacement (relative position)
+        from this position to the target position; where relative_position = target_position - this_position;
+        i.e. this_position + relative_position = target_position;
         */
-        private Position getRelPosVector(Position anchor){
-            return new Position(x - anchor.x, y - anchor.y);
+        private Position getRelPosVector(Position target){
+            return new Position(target.x - x, - (target.y - y)); /*TRICKY: must negate the y difference
+            calculation because of the way our grid works (lower y values indicate higher up block positions)*/
         }
 
         private Position rotateVector(Rotation rotation){
@@ -67,17 +68,17 @@ public class TetrisGameEngine{
 
 			The linear transformation is of the form:
 			|0 -1|
-			|1  0|*<this.x, this.y>   if rotation == CW_90
+			|1  0|*<this.x, this.y>   if rotation == CCW_90
 
 			|0  1|
-			|-1 0|*<this.x, this.y>   if rotation == CCW_90;
+			|-1 0|*<this.x, this.y>   if rotation == CW_90;
 			*/
 
-            if(rotation == Rotation.CCW_90){
+            if(rotation == Rotation.CW_90){
                 return new Position(this.y, -(this.x));
             }
 
-            else if(rotation == Rotation.CW_90){
+            else if(rotation == Rotation.CCW_90){
                 return new Position(-(this.y), this.x);
             }
 
@@ -89,7 +90,8 @@ public class TetrisGameEngine{
         /*adds a vector "vector" to the current position; calculating a new position vector.x units right
         and vector.y units up from the current position*/
         private Position addVector(Position vector){
-            return new Position(x+vector.x, y+vector.y);
+            return new Position(x+vector.x, y-vector.y); /*TRICKY: here we have to subtract vector.y from y
+            instead of adding it because our y values grow downward; i.e. lower values indicate higher block positions*/
         }
 
         /*Given a pixel scaling factor of "xPixelScalingFactor", returns the location of the leftmost
@@ -202,38 +204,37 @@ public class TetrisGameEngine{
         public boolean rotate(Rotation rotation){
             Position rotationPosition, vRelToPivot, vRotated;
 
-            //check to ensure the rotation can be performed
+            //COLLISION DETECTION: check to ensure the rotation can be performed
             for(Block block : blocks){
 				/*get the relative position vector representing the displacement
 				from pivot to block*/
-                vRelToPivot = block.position.getRelPosVector(pivot.position);
+                vRelToPivot = pivot.position.getRelPosVector(block.position);
 
                 //rotate the displacement vector
                 vRotated = vRelToPivot.rotateVector(rotation);
 
 				/*calculate the block's new rotated position by adding the rotated displacement vector
-				to the original block position*/
-                rotationPosition = block.position.addVector(vRotated);
+				to the pivot block's position*/
+                rotationPosition = pivot.position.addVector(vRotated);
 
-                if(!blockMap.isFreeSpace(rotationPosition) && !blocks.contains(blockMap.blockAt(rotationPosition))){
-					/*if the position to move to is occupied and the occupying block does not belong to our tetris piece
-					either a collision has been detected or the current block is out of range;
-					***the latter works as long as we ensure our tetris piece's block set
-					never contains the null element****/
+                if(!blockMap.isInRange(rotationPosition) ||
+                        (blockMap.isOccupied(rotationPosition) && !blocks.contains(blockMap.blockAt(rotationPosition)))){
+					/*if the position to rotate to is out of range, or it is occupied by a block that is NOT
+					* part of our tetromino piece*/
                     return false;
                 }
             }
 
-            //location to rotate to is unobstructed; perform rotation:
+            //ROTATION: location to rotate to is unobstructed; perform rotation:
 
             //remove the tetromino piece from the map
             blockMap.removeTetromino_unsafe(this);
 
             //apply the transformation to all blocks
             for(Block block : blocks){
-                vRelToPivot = block.position.getRelPosVector(pivot.position);
+                vRelToPivot = pivot.position.getRelPosVector(block.position);
                 vRotated = vRelToPivot.rotateVector(rotation);
-                rotationPosition = block.position.addVector(vRotated);
+                rotationPosition = pivot.position.addVector(vRotated);
                 block.position = rotationPosition;
             }
 
@@ -322,10 +323,10 @@ public class TetrisGameEngine{
             blocks.add(block);
 
             block = new Block(color, block.position.right());
+            pivot = block;
             blocks.add(block);
 
             block = new Block(color, block.position.right());
-            pivot = block;
             blocks.add(block);
 
             block = new Block(color, block.position.below());
@@ -337,13 +338,13 @@ public class TetrisGameEngine{
         private LShape(Position anchorPosition){
             super(BlockColor.PURPLE);
             Block block = new Block(color, anchorPosition);
-            pivot = block;
             blocks.add(block);
 
             block = new Block(color, block.position.below());
             blocks.add(block);
 
             block = new Block(color, block.position.above().right());
+            pivot = block;
             blocks.add(block);
 
             block = new Block(color, block.position.right());

@@ -82,6 +82,13 @@
             android:layout_height="match_parent"
             android:text="CCW"
             android:id="@+id/CCW" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/UP"
+            android:layout_weight="1"
+            android:text="UP" />
     </LinearLayout>
 
 
