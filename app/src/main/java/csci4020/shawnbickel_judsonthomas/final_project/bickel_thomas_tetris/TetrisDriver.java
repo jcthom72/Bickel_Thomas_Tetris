@@ -36,7 +36,7 @@ public class TetrisDriver {
         for(int i = 0; i < 4; i++){
             currentBlock = blockItr.next();
             currentTetrominoGraphics[i].updatePos(currentBlock.getPosition().getXPixelPos(view.getBlockPixelWidth()),
-                currentBlock.getPosition().getYPixelPos(view.getBlockPixelHeight()));
+                    currentBlock.getPosition().getYPixelPos(view.getBlockPixelHeight()));
         }
 
         //update the screen to reflect the updated graphics positions
@@ -73,7 +73,7 @@ public class TetrisDriver {
         //update the screen after all blocks have been added
         view.updateScreen();
         return true;
-        };
+    };
 
 
     public boolean move(TetrisGameEngine.Direction direction){

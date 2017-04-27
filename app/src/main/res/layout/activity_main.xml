@@ -46,12 +46,12 @@
             android:paddingTop="10dp" />
 
         <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/play_image"
-        android:layout_weight="1.00"
-        android:layout_gravity="center"
-        android:id="@+id/play_button" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/play_image"
+            android:layout_weight="1.00"
+            android:layout_gravity="center"
+            android:id="@+id/play_button" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
     <csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris.TetrisGameView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#002E63"
+        android:background="@drawable/blue_grid"
         android:id="@+id/tetrisLayout"
         android:layout_weight=".9" />
 

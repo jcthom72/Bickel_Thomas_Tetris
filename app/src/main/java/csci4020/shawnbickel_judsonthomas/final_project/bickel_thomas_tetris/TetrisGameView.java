@@ -265,8 +265,8 @@ public class TetrisGameView extends View{
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(getResources().getColor(R.color.appMainColor)); /*for testing, just draw a boring white background
-            later we can make our own background, or draw a grid or something*/
+        //canvas.drawColor(getResources().getColor(R.color.appMainColor)); /*for testing, just draw a boring white background
+            //later we can make our own background, or draw a grid or something*/
 
         for(GraphicBlock block : blocksToDraw){
             canvas.drawBitmap(block.blockImg, block.x, block.y, null);
