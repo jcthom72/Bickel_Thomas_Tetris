@@ -92,10 +92,10 @@ public class TetrisDriver {
         TetrisGameView.BlockAnimation animation;
 
         switch(direction){
-            case UP: animation = new TetrisGameView.UpTranslation(view.getBlockPixelHeight(), 1, 300); break;
-            case DOWN: animation = new TetrisGameView.DownTranslation(view.getBlockPixelHeight(), 1, 300); break;
-            case LEFT: animation = new TetrisGameView.LeftTranslation(view.getBlockPixelWidth(), 1, 300); break;
-            case RIGHT: animation = new TetrisGameView.RightTranslation(view.getBlockPixelWidth(), 1, 300); break;
+            case UP: animation = new TetrisGameView.UpTranslation(view.getBlockPixelHeight(), 1, 150); break;
+            case DOWN: animation = new TetrisGameView.DownTranslation(view.getBlockPixelHeight(), 1, 150); break;
+            case LEFT: animation = new TetrisGameView.LeftTranslation(view.getBlockPixelWidth(), 1, 150); break;
+            case RIGHT: animation = new TetrisGameView.RightTranslation(view.getBlockPixelWidth(), 1, 150); break;
             default: return false; //invalid direction
         }
 

@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         tetrisGameView.initialize(10, 10);
+        //tetrisGameView.setOnTouchListener(new onTouchListener());
     }
 
     public void updateScore(){

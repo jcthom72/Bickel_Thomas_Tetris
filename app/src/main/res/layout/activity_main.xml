@@ -95,7 +95,7 @@
     <csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris.TetrisGameView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/blue_grid"
+        android:background="#002E63"
         android:id="@+id/tetrisLayout"
         android:layout_weight=".9" />
 
