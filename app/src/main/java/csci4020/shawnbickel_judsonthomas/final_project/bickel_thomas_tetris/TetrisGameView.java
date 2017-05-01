@@ -16,8 +16,8 @@ import static android.graphics.BitmapFactory.decodeResource;
 
 public class TetrisGameView extends View{
     public class GraphicBlock{
-        private int x; //x pixel location of block's left side
-        private int y; //y pixel location of block's top side
+        private float x; //x pixel location of block's left side
+        private float y; //y pixel location of block's top side
         private Bitmap blockImg;
 
         private GraphicBlock(TetrisGameEngine.BlockColor color, int x, int y){
@@ -37,6 +37,7 @@ public class TetrisGameView extends View{
             this.x = x;
             this.y = y;
         }
+        
     }
 
     /*class responsible for performing animations to tetrominos' graphic blocks;

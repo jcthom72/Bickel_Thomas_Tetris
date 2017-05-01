@@ -1,10 +1,14 @@
 package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,10 +26,16 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
     private TetrisGameView tetrisGameView;
     private TetrisDriver tetrisGameDriver;
+    private TetrisGameEngine.Tetromino currentTetromino;
     private ImageView playButton;
     private ImageView pauseButton;
     private TextView gameScore;
     private int score;
+    private int columns = 0;
+    private int rows = 0;
+    private int midPoint = 0;
+    private int gridRows = 10;
+    private int gridColomns = 10;
     protected String HighScore = "HighScore.txt";
 
     @Override
@@ -39,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
         playButton = (ImageView) findViewById(R.id.play_button);
         pauseButton = (ImageView) findViewById(R.id.pause_button);
         tetrisGameView = (TetrisGameView) findViewById(R.id.tetrisLayout);
-        tetrisGameDriver = new TetrisDriver(new TetrisGameEngine(10, 10), tetrisGameView);
-
+        tetrisGameDriver = new TetrisDriver(new TetrisGameEngine(gridRows, gridColomns), tetrisGameView);
+        columns = tetrisGameDriver.getColumns();
+        rows = tetrisGameDriver.getRows();
+        midPoint = columns / 2;
 
         CW.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,9 +110,88 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        tetrisGameView.initialize(10, 10);
-        //tetrisGameView.setOnTouchListener(new onTouchListener());
+        tetrisGameView.initialize(gridRows, gridColomns);
+
+        tetrisGameView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                float y = motionEvent.getY();
+                float x = motionEvent.getX();
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (x >= midPoint) {
+                        tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CW_90);
+                    } else if (x < midPoint) {
+                        tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CCW_90);
+                    }
+                    return true;
+
+                }
+                return false;
+            }
+
+        });
+
+        // https://www.tutorialspoint.com/android/android_drag_and_drop.htm
+        tetrisGameView.setOnLongClickListener(new View.OnLongClickListener(){
+
+            @Override
+            public boolean onLongClick(View view) {
+                ClipData.Item item = new ClipData.Item((CharSequence)view.getTag());
+                String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
+
+                ClipData dragData = new ClipData(view.getTag().toString(), mimeTypes,item);
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(tetrisGameView);
+                view.startDrag(dragData,myShadow,null,0);
+                return true;
+            }
+        });
+
+        tetrisGameView.setOnDragListener(new View.OnDragListener(){
+
+            @Override
+            public boolean onDrag(View view, DragEvent dragEvent) {
+                int y = (int)dragEvent.getY();
+                int x = (int) dragEvent.getX();
+                switch(dragEvent.getAction()){
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        break;
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        y = (int)dragEvent.getY();
+                        x = (int) dragEvent.getX();
+                        if (x >= midPoint) {
+                            tetrisGameDriver.move(TetrisGameEngine.Direction.RIGHT);
+                        } else if (x < midPoint){
+                            tetrisGameDriver.move(TetrisGameEngine.Direction.LEFT);
+                        }else if (y >= midPoint){
+                            tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN);
+                        }
+                        break;
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        y = (int)dragEvent.getY();
+                        x = (int) dragEvent.getX();
+                        break;
+                    case DragEvent.ACTION_DRAG_LOCATION:
+                        y = (int)dragEvent.getY();
+                        x = (int) dragEvent.getX();
+                        break;
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        break;
+                    case DragEvent.ACTION_DROP:
+                        break;
+                    default:
+                        break;
+                }
+
+
+                return true;
+            }
+
+        });
+
+
+
     }
+
 
     public void updateScore(){
         score++;

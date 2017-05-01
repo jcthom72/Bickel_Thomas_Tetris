@@ -25,6 +25,8 @@ public class TetrisDriver {
         tetrominoTypes = TetrisGameEngine.TetrominoType.values();
     }
 
+
+
     private void updateCurrentGraphicsPosition(){
         if(currentTetrominoGraphics.length != 4){
             return;
@@ -126,4 +128,17 @@ public class TetrisDriver {
         updateCurrentGraphicsPosition();
         return true;
     }
+
+    public int getRows(){
+        return game.getNumRows();
+    }
+
+    public int getColumns(){
+        return game.getNumCols();
+    }
+
+    public TetrisGameEngine.Tetromino getCurrentTetromino(){
+        return currentTetromino;
+    }
+
 }

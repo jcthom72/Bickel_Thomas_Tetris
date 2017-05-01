@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 /*backend game engine class for tetris game - judson thomas*/
 
-public class TetrisGameEngine{
+public class TetrisGameEngine {
     public enum TetrominoType{ISHAPE, OSHAPE, LSHAPE, JSHAPE, SSHAPE, ZSHAPE, TSHAPE}
     public enum BlockColor{GREEN, YELLOW, RED, BLUE, PURPLE, GOLD, CYAN}
     public enum Direction{UP, DOWN, LEFT, RIGHT}

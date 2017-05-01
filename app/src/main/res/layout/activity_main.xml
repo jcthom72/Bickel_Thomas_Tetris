@@ -96,6 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#002E63"
+        android:longClickable="true"
         android:id="@+id/tetrisLayout"
         android:layout_weight=".9" />
 
