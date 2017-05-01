@@ -15,7 +15,7 @@ import static android.graphics.BitmapFactory.decodeResource;
  */
 
 public class TetrisGameView extends View{
-    public class GraphicBlock{
+    protected class GraphicBlock{
         private float x; //x pixel location of block's left side
         private float y; //y pixel location of block's top side
         private Bitmap blockImg;
@@ -37,7 +37,6 @@ public class TetrisGameView extends View{
             this.x = x;
             this.y = y;
         }
-        
     }
 
     /*class responsible for performing animations to tetrominos' graphic blocks;
@@ -298,4 +297,5 @@ public class TetrisGameView extends View{
     public int getBlockPixelHeight(){
         return blockImgHeight;
     }
+
 }

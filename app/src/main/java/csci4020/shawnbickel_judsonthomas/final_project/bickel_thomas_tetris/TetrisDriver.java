@@ -137,8 +137,8 @@ public class TetrisDriver {
         return game.getNumCols();
     }
 
-    public TetrisGameEngine.Tetromino getCurrentTetromino(){
-        return currentTetromino;
+    public TetrisGameEngine.BlockColor getCurrentTetrominoColor(){
+       return currentTetromino.getColor();
     }
 
 }
