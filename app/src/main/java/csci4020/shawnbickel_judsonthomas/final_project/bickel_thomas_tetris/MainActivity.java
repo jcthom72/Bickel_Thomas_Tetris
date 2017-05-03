@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private int gridRows = 10;
     private int gridColomns = 10;
     protected String HighScore = "HighScore.txt";
+    private float startXTouch = 0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,16 +125,25 @@ public class MainActivity extends AppCompatActivity {
         tetrisGameView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int  y = (int) motionEvent.getY();
-                int x = (int) motionEvent.getX();
-                if (y > (view.getHeight() / 2)){
-                    tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN);
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    startXTouch = motionEvent.getX();
                 }
-                else if (x >= (view.getWidth() / 2)) {
-                    tetrisGameDriver.move(TetrisGameEngine.Direction.RIGHT);
-                } else if (x < (view.getWidth() / 2)){
-                    tetrisGameDriver.move(TetrisGameEngine.Direction.LEFT);
+
+               else if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    float endXTouch = motionEvent.getX();
+                    float xDelta = endXTouch - startXTouch;
+
+                    if (xDelta > 0) {
+                        tetrisGameDriver.move(TetrisGameEngine.Direction.RIGHT);
+                    } else if (xDelta < 0) {
+                        tetrisGameDriver.move(TetrisGameEngine.Direction.LEFT);
+                    }
                 }
+
+                else{ /*motion event not handled*/
+                    return false;
+                }
+
                 return true;
             }
 
