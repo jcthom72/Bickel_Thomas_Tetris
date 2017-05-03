@@ -1,9 +1,13 @@
 package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -23,8 +27,11 @@ public class MainActivity extends AppCompatActivity {
     private int gridRows = 10;
     private int gridColomns = 10;
     private float startXTouch = 0.0f;
+    private boolean hasSpawned;
 
     private class MainGameThread extends AsyncTask<Void, Void, Void>{
+
+/*
         @Override
         public void run() {
             while(tetrisGameDriver.nextTetromino()) {
@@ -50,20 +57,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+        */
 
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
+
         }
 
         @Override
         protected void onPreExecute() {
             hasSpawned = tetrisGameDriver.nextTetromino();
+            updateScore();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             while(hasSpawned){
+                try{
+                    tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN);
+                }catch(NullPointerException e){
+                    newGame();
+                }
 
             }
             return null;
@@ -132,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MainGameThread gameThread = new MainGameThread();
-                gameThread.start();
+                gameThread.execute();
             }
         });
 
@@ -191,11 +206,41 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public void updateScore(){
         score++;
         String s = String.valueOf(score);
         gameScore.setText(s);
+    }
+
+    public void scoreReset(){
+        score = 0;
+    }
+
+    public void newGame(){
+        final View dialogView = (LayoutInflater.from(this)).inflate(R.layout.dialog, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setView(dialogView);
+
+        builder.setTitle("Choose to play a new game or quit");
+
+        builder.setPositiveButton("New Game", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id){
+                scoreReset();
+                hasSpawned = tetrisGameDriver.nextTetromino();
+                updateScore();
+            }
+        });
+
+        builder.setNegativeButton("Quit", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        builder.show();
     }
 
 

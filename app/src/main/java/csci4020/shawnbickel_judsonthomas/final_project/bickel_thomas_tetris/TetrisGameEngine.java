@@ -254,6 +254,10 @@ public class TetrisGameEngine {
             this.color = color;
             blocks = new HashSet<Block>(4); //create with an initial capacity of 4
         }
+
+        public void clearBlocks(){
+            blocks.clear();
+        }
     }
 
     public class IShape extends Tetromino{
@@ -565,3 +569,4 @@ public class TetrisGameEngine {
 
     public int getNumCols(){return blockMap.numCols;}
 }
+
