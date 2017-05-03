@@ -1,24 +1,14 @@
 package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 
-import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
     private TetrisGameView tetrisGameView;
@@ -32,8 +22,58 @@ public class MainActivity extends AppCompatActivity {
     private int score;
     private int gridRows = 10;
     private int gridColomns = 10;
-    protected String HighScore = "HighScore.txt";
     private float startXTouch = 0.0f;
+
+    private class MainGameThread extends AsyncTask<Void, Void, Void>{
+        @Override
+        public void run() {
+            while(tetrisGameDriver.nextTetromino()) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateScore();
+                    }
+                });
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+                while (tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                    }
+                }
+
+
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            hasSpawned = tetrisGameDriver.nextTetromino();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            while(hasSpawned){
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
         pauseButton = (ImageView) findViewById(R.id.pause_button);
         tetrisGameView = (TetrisGameView) findViewById(R.id.tetrisLayout);
         tetrisGameDriver = new TetrisDriver(new TetrisGameEngine(gridRows, gridColomns), tetrisGameView);
-        //tetrisGameView.setOnLongClickListener(new myLongTouchListener());
-        //tetrisGameView.setOnDragListener(new DragListener());
 
         //FOR TESTING: using score label text as a left button
         TextView leftButton = (TextView) findViewById(R.id.textView9);
@@ -93,9 +131,8 @@ public class MainActivity extends AppCompatActivity {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tetrisGameDriver.nextTetromino();
-                updateScore();
-                //tetrisGameDriver.move(TetrisGameEngine.Direction.UP);
+                MainGameThread gameThread = new MainGameThread();
+                gameThread.start();
             }
         });
 
@@ -120,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        */
+*/
 
         tetrisGameView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -159,65 +196,7 @@ public class MainActivity extends AppCompatActivity {
         score++;
         String s = String.valueOf(score);
         gameScore.setText(s);
-        saveHighScore(s);
     }
 
-    // saves the player's score to a file
-    public void saveHighScore(String score)  {
-        try {
-            FileOutputStream fos = openFileOutput(HighScore, Context.MODE_PRIVATE);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter bw = new BufferedWriter(osw);
-            PrintWriter pw = new PrintWriter (bw);
-            pw.print(score);
-            pw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Can't write to file", Toast.LENGTH_LONG).show();
-        }
-    }
 
-    // returns a player's score from a file
-    public String returnHighScore(){
-        String score = "";
-
-        try {
-            FileInputStream fis = openFileInput(HighScore);
-            Scanner s = new Scanner(fis);
-            while(s.hasNext()){
-                score = s.next();
-            }
-            s.close();
-        } catch (FileNotFoundException e) {
-            Log.i("ReadData", "no input file found");
-        }
-        return score;
-    }
-
-    // retrieves the player's score from a file
-    private void retrieveScore(){
-        // sets the player's score retrieved from file
-        String sc = "";
-        try {
-           sc = returnHighScore();
-        }catch (NullPointerException e){
-            score = 0;
-            gameScore.setText(Integer.toString(score));
-        }
-
-
-        try{
-            int s = Integer.parseInt(sc);
-            score = s;
-            gameScore.setText(Integer.toString(s));
-        }catch (NumberFormatException e){
-
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onPause();
-        retrieveScore();
-    }
 }

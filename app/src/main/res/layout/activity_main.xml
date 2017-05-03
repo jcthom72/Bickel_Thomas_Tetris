@@ -67,7 +67,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:weightSum="4"
+        android:weightSum="2"
         android:layout_alignParentTop="true"
         android:layout_height="wrap_content"
         android:layout_weight=".1">
@@ -76,11 +76,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="CW"
+            android:layout_weight="1"
             android:id="@+id/CW" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="CCW"
             android:id="@+id/CCW" />
     </LinearLayout>
