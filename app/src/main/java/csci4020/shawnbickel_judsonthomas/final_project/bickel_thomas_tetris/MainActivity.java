@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private TetrisGameView tetrisGameView;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private int gridRows = 10;
     private int gridColomns = 10;
     private float startXTouch = 0.0f;
-    private boolean hasSpawned;
+    private boolean hasSpawned = true;
 
     private class MainGameThread extends AsyncTask<Void, Void, Void>{
 
@@ -73,14 +74,31 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            while(hasSpawned){
-                try{
-                    tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN);
-                }catch(NullPointerException e){
-                    newGame();
-                }
+                while(tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)){
+                    try{
+                        Thread.sleep(1000);
+                    }catch(NullPointerException e){
+                        newGame();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-            }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if ((hasSpawned = tetrisGameDriver.nextTetromino())){
+                                newTetromino();
+                            }
+
+                        }
+                    });
+
+                }
             return null;
         }
 
@@ -138,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tetrisGameDriver.move(TetrisGameEngine.Direction.RIGHT);
+                MainGameThread gameThread = new MainGameThread();
+                gameThread.execute();
             }
         });
 
@@ -153,26 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         tetrisGameView.initialize(gridRows, gridColomns);
-
-
-/*
-        tetrisGameView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                int  y = (int) motionEvent.getY();
-                int x = (int) motionEvent.getX();
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (x >= (tetrisGameView.getWidth() / 2)) {
-                        tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CW_90);
-                    } else if (x < (tetrisGameView.getWidth() / 2)) {
-                        tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CCW_90);
-                    }
-                }
-                return true;
-            }
-
-        });
-*/
 
         tetrisGameView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -200,9 +199,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-
-
 
     }
 
@@ -242,6 +238,18 @@ public class MainActivity extends AppCompatActivity {
 
         builder.show();
     }
+    public void newTetromino(){
+        MainGameThread gameThread = new MainGameThread();
+        gameThread.execute();
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast toast = Toast.makeText(getApplicationContext(), "Press the Play button to start the game",
+                Toast.LENGTH_LONG);
+        toast.show();
+    }
 }
+
+
