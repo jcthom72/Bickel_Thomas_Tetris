@@ -15,9 +15,9 @@ import static android.graphics.BitmapFactory.decodeResource;
  */
 
 public class TetrisGameView extends View{
-    public class GraphicBlock{
-        private int x; //x pixel location of block's left side
-        private int y; //y pixel location of block's top side
+    protected class GraphicBlock{
+        private float x; //x pixel location of block's left side
+        private float y; //y pixel location of block's top side
         private Bitmap blockImg;
 
         private GraphicBlock(TetrisGameEngine.BlockColor color, int x, int y){
@@ -266,7 +266,7 @@ public class TetrisGameView extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(getResources().getColor(R.color.appMainColor)); /*for testing, just draw a boring white background
-            later we can make our own background, or draw a grid or something*/
+            //later we can make our own background, or draw a grid or something*/
 
         for(GraphicBlock block : blocksToDraw){
             canvas.drawBitmap(block.blockImg, block.x, block.y, null);
@@ -297,4 +297,5 @@ public class TetrisGameView extends View{
     public int getBlockPixelHeight(){
         return blockImgHeight;
     }
+
 }

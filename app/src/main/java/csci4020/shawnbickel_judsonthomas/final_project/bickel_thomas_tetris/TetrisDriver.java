@@ -25,6 +25,8 @@ public class TetrisDriver {
         tetrominoTypes = TetrisGameEngine.TetrominoType.values();
     }
 
+
+
     private void updateCurrentGraphicsPosition(){
         if(currentTetrominoGraphics.length != 4){
             return;
@@ -36,7 +38,7 @@ public class TetrisDriver {
         for(int i = 0; i < 4; i++){
             currentBlock = blockItr.next();
             currentTetrominoGraphics[i].updatePos(currentBlock.getPosition().getXPixelPos(view.getBlockPixelWidth()),
-                currentBlock.getPosition().getYPixelPos(view.getBlockPixelHeight()));
+                    currentBlock.getPosition().getYPixelPos(view.getBlockPixelHeight()));
         }
 
         //update the screen to reflect the updated graphics positions
@@ -73,7 +75,7 @@ public class TetrisDriver {
         //update the screen after all blocks have been added
         view.updateScreen();
         return true;
-        };
+    };
 
 
     public boolean move(TetrisGameEngine.Direction direction){
@@ -92,10 +94,10 @@ public class TetrisDriver {
         TetrisGameView.BlockAnimation animation;
 
         switch(direction){
-            case UP: animation = new TetrisGameView.UpTranslation(view.getBlockPixelHeight(), 1, 300); break;
-            case DOWN: animation = new TetrisGameView.DownTranslation(view.getBlockPixelHeight(), 1, 300); break;
-            case LEFT: animation = new TetrisGameView.LeftTranslation(view.getBlockPixelWidth(), 1, 300); break;
-            case RIGHT: animation = new TetrisGameView.RightTranslation(view.getBlockPixelWidth(), 1, 300); break;
+            case UP: animation = new TetrisGameView.UpTranslation(view.getBlockPixelHeight(), 1, 150); break;
+            case DOWN: animation = new TetrisGameView.DownTranslation(view.getBlockPixelHeight(), 1, 150); break;
+            case LEFT: animation = new TetrisGameView.LeftTranslation(view.getBlockPixelWidth(), 1, 150); break;
+            case RIGHT: animation = new TetrisGameView.RightTranslation(view.getBlockPixelWidth(), 1, 150); break;
             default: return false; //invalid direction
         }
 
@@ -126,4 +128,17 @@ public class TetrisDriver {
         updateCurrentGraphicsPosition();
         return true;
     }
+
+    public int getRows(){
+        return game.getNumRows();
+    }
+
+    public int getColumns(){
+        return game.getNumCols();
+    }
+
+    public TetrisGameEngine.BlockColor getCurrentTetrominoColor(){
+       return currentTetromino.getColor();
+    }
+
 }
