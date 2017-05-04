@@ -28,15 +28,17 @@ public class MainActivity extends AppCompatActivity {
     private int gridRows = 10;
     private int gridColomns = 10;
     private float startXTouch = 0.0f;
-    private boolean hasSpawned = true;
+    MainGameThread gameThread;
 
-    private class MainGameThread extends AsyncTask<Void, Void, Void>{
-
-/*
+    private class MainGameThread extends Thread {
         @Override
         public void run() {
-            while(tetrisGameDriver.nextTetromino()) {
-
+            /*game runs while a new tetromino can be spawned; i.e. in this version
+            * the game does not necessarily end if a tetromino is placed in the top row, but rather
+            * if a tetromino is placed in a position that blocks the spawn location (i.e. in the middle
+            * of the top row)*/
+            while (tetrisGameDriver.nextTetromino()) {
+                //update the score
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -44,74 +46,28 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                //sleep before moving the piece downward
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                 }
-                while (tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)) {
+                /*while the piece can be moved down, i.e. has not landed, we move it down and then sleep for a given amount of time;
+                if we attempt to move the piece down and a collision is detected, i.e. ERROR_COLLISION is returned, we know
+                * that the piece has "landed"*/
+                while (tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN) != TetrisDriver.MoveStatus.ERROR_COLLISION) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(800);
                     } catch (InterruptedException e) {
                     }
                 }
 
-
+                //now that the piece has landed, update any potential rows that may need to be deleted
+                tetrisGameDriver.updateRows();
             }
-        }
-        */
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-            score++;
-            String s = String.valueOf(score);
-            gameScore.setText(s);
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            hasSpawned = tetrisGameDriver.nextTetromino();
-            updateScore();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            while (hasSpawned){
-                while(tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)){
-                    try{
-                        while(tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)){
-                            Thread.sleep(1000);
-                        }
-                        runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                hasSpawned = tetrisGameDriver.nextTetromino();
-
-                            }
-                        });
-
-                        publishProgress();
-                        while(tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)){
-                            Thread.sleep(1000);
-                        }
-                    }catch(NullPointerException e){
-                        newGame();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+            gameThread = null;
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,15 +80,6 @@ public class MainActivity extends AppCompatActivity {
         pauseButton = (ImageView) findViewById(R.id.pause_button);
         tetrisGameView = (TetrisGameView) findViewById(R.id.tetrisLayout);
         tetrisGameDriver = new TetrisDriver(new TetrisGameEngine(gridRows, gridColomns), tetrisGameView);
-
-        //FOR TESTING: using score label text as a left button
-        TextView leftButton = (TextView) findViewById(R.id.textView9);
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tetrisGameDriver.move(TetrisGameEngine.Direction.LEFT);
-            }
-        });
 
         CW.setOnClickListener(new View.OnClickListener(){
 
@@ -149,32 +96,16 @@ public class MainActivity extends AppCompatActivity {
                 tetrisGameDriver.rotate(TetrisGameEngine.Rotation.CCW_90);
             }
         });
-        //FOR TESTING: using score number text as a down button
-        gameScore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN);
-            }
-        });
 
-        //FOR TESTING: using play button as a right button
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainGameThread gameThread = new MainGameThread();
-                gameThread.execute();
+                if(gameThread == null){
+                    gameThread = new MainGameThread();
+                    gameThread.start();
+                }
             }
         });
-
-        //FOR TESTING: using pause button as an up button
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainGameThread gameThread = new MainGameThread();
-                gameThread.execute();
-            }
-        });
-
 
         tetrisGameView.initialize(gridRows, gridColomns);
 
@@ -229,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 scoreReset();
-                hasSpawned = tetrisGameDriver.nextTetromino();
                 updateScore();
             }
         });

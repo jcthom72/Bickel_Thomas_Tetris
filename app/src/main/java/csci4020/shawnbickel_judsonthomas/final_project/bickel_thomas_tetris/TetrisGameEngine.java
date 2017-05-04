@@ -2,6 +2,7 @@ package csci4020.shawnbickel_judsonthomas.final_project.bickel_thomas_tetris;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /*backend game engine class for tetris game - judson thomas*/
 
@@ -36,6 +37,14 @@ public class TetrisGameEngine {
         private Position right(){return new Position(x+1, y);}
         private Position above(){return new Position(x, y-1);}
         private Position below(){return new Position(x, y+1);}
+
+        public int getX(){
+            return x;
+        }
+
+        public int getY(){
+            return y;
+        }
 
         private Position inDirection(Direction direction){
             switch(direction){
@@ -168,6 +177,40 @@ public class TetrisGameEngine {
         protected HashSet<Block> blocks;
         protected BlockColor color;
         protected Block pivot; //blocks rotate around pivot
+
+        public Position getLowestBlockPosition(){
+            if(blocks == null){
+                return null;
+            }
+            Iterator<Block> blockItr = blocks.iterator();
+            Position lowestPos = blocks.iterator().next().position;
+
+            Position temp;
+            while(blockItr.hasNext()){
+                temp = blockItr.next().position;
+                if(temp.y > lowestPos.y){
+                    lowestPos = temp;
+                }
+            }
+            return lowestPos;
+        }
+
+        public Position getHighestBlockPosition(){
+            if(blocks == null){
+                return null;
+            }
+            Iterator<Block> blockItr = blocks.iterator();
+            Position highestPos = blocks.iterator().next().position;
+
+            Position temp;
+            while(blockItr.hasNext()){
+                temp = blockItr.next().position;
+                if(temp.y < highestPos.y){
+                    highestPos = temp;
+                }
+            }
+            return highestPos;
+        }
 
         public boolean nudge(Direction direction){
             Position nudgePosition;
@@ -522,7 +565,7 @@ public class TetrisGameEngine {
         return tetromino;
     }
 
-    private boolean removeRow(int rowToRemove){
+    public boolean removeRow(int rowToRemove){
         if(rowToRemove >= blockMap.numRows || rowToRemove < 0){
             return false;
         }
@@ -534,26 +577,42 @@ public class TetrisGameEngine {
         }
 
         //row is filled
+        //remove every block in the row
         for(int i = 0; i < blockMap.numCols; i++){
             blockMap.removeBlock_unsafe(blockMap.grid[rowToRemove][i]);
         }
 
-        /*move down every piece above the removed row*/
-        if(rowToRemove == 0){
-            return true;
+        return true;
+    }
+
+    public boolean shiftDownRows(int lowestRow, int numRowsToShiftDown){
+        LinkedList<Block> blocksToShift = new LinkedList<Block>();
+
+        //validate numRowsToShiftDown
+        if(numRowsToShiftDown <= 0){
+            return false;
         }
 
-        for(int i = rowToRemove - 1; i < blockMap.numRows; i++){
-            for(int j = 0; j < blockMap.numCols; j++){
-                blockMap.removeBlock_unsafe(blockMap.grid[i][j]);
-                blockMap.grid[i][j].position = blockMap.grid[i][j].position.below();
+        //validate lowest row
+        if(lowestRow+numRowsToShiftDown >= blockMap.numRows || lowestRow < 0){
+            return false;
+        }
+
+        //remove all blocks at and above "lowestRow", and update their position to be
+        //"numRowsToShiftDown" units down
+        for(int i = lowestRow; i >= 0; i--){
+            for(int j = 0; j < blockMap.numCols; j++) {
+                if(blockMap.grid[i][j] != null) {
+                    blocksToShift.add(blockMap.grid[i][j]);
+                    blockMap.removeBlock_unsafe(blockMap.grid[i][j]);
+                    blocksToShift.getLast().position.y += numRowsToShiftDown;
+                }
             }
         }
 
-        for(int i = rowToRemove - 1; i < blockMap.numRows; i++){
-            for(int j = 0; j < blockMap.numCols; j++){
-                blockMap.addBlock_unsafe(blockMap.grid[i][j]);
-            }
+        //add all blocks previously updated back into game board
+        for(Block block : blocksToShift){
+            blockMap.addBlock_unsafe(block);
         }
 
         return true;

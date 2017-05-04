@@ -14,6 +14,7 @@ public class TetrisDriver {
     private TetrisGameView.GraphicBlock[] currentTetrominoGraphics;
     private Random tetrominoGen;
     private TetrisGameEngine.TetrominoType[] tetrominoTypes;
+    public enum MoveStatus{SUCCESS, ERROR_ANIMATING, ERROR_COLLISION, ERROR_NO_PIECE, ERROR_INVALID_DIRECTION};
 
     TetrisDriver(TetrisGameEngine game, TetrisGameView view){
         this.game = game;
@@ -55,7 +56,6 @@ public class TetrisDriver {
         TetrisGameEngine.TetrominoType randomType;
         randomType = tetrominoTypes[tetrominoGen.nextInt(tetrominoTypes.length)];
         currentTetromino = game.spawn(randomType);
-        ///*-----------------DEBUG*/currentTetromino = game.spawn(TetrisGameEngine.TetrominoType.ISHAPE);
         if(currentTetromino == null){
             //GAME HAS ENDED; SPAWN LOCATION IS OBSTRUCTED
             return false;
@@ -78,17 +78,17 @@ public class TetrisDriver {
     };
 
 
-    public boolean move(TetrisGameEngine.Direction direction){
+    public MoveStatus move(TetrisGameEngine.Direction direction){
         /*if there is no piece to nudge*/
         if(currentTetromino == null){
-            return false;
+            return MoveStatus.ERROR_NO_PIECE;
         }
 
         /*if the screen is currently animating we do not allow a move to occur;
         * we may change this in the future to allow queueing of moves (probably with
         * a max queue size of 2 (up to one move can be queued while another move is occurring)*/
         if(view.isCurrentlyAnimating()){
-            return false; //********returning false here could potentially create errors when determining if a piece has landed because of ambiguity********
+            return MoveStatus.ERROR_ANIMATING;
         }
 
         TetrisGameView.BlockAnimation animation;
@@ -98,24 +98,30 @@ public class TetrisDriver {
             case DOWN: animation = new TetrisGameView.DownTranslation(view.getBlockPixelHeight(), 1, 150); break;
             case LEFT: animation = new TetrisGameView.LeftTranslation(view.getBlockPixelWidth(), 1, 150); break;
             case RIGHT: animation = new TetrisGameView.RightTranslation(view.getBlockPixelWidth(), 1, 150); break;
-            default: return false; //invalid direction
+            default: return MoveStatus.ERROR_INVALID_DIRECTION; //invalid direction
         }
 
         if(currentTetromino.nudge(direction) == false){
             //can't move piece in direction; collision with block / boundary detected
-            return false;
+            return MoveStatus.ERROR_COLLISION;
         }
 
         //animate the current tetromino's graphic block images
         view.animate(currentTetrominoGraphics, animation);
 
-        //reset the animation, allowing
+        //reset the animation
         animation.reset();
-        return true;
+        return MoveStatus.SUCCESS;
     }
 
     public boolean rotate(TetrisGameEngine.Rotation rotation){
         if(currentTetromino == null){
+            return false;
+        }
+
+        /*prevent a rotation from occurring while the tetromino piece is in the middle
+        of an animation*/
+        if(view.isCurrentlyAnimating()){
             return false;
         }
 
@@ -127,6 +133,41 @@ public class TetrisDriver {
         //update the position directly since there is no animation to perform
         updateCurrentGraphicsPosition();
         return true;
+    }
+
+    void updateRows(){
+        if(currentTetromino == null){
+            return;
+        }
+        int numRowsToShiftDown = 0;
+        int lowestRow = -1;
+        int lowestRowToCheck = currentTetromino.getLowestBlockPosition().getY();
+        int highestRowToCheck = currentTetromino.getHighestBlockPosition().getY();
+
+        for(int i = lowestRowToCheck; i >= highestRowToCheck; i--){
+            if(game.removeRow(i)){
+                view.removeRow(i);
+                if(numRowsToShiftDown == 0){
+                    lowestRow = i-1;
+                }
+                numRowsToShiftDown++;
+            }
+
+            else if(numRowsToShiftDown != 0){
+                game.shiftDownRows(lowestRow, numRowsToShiftDown);
+                view.shiftDownRows(lowestRow, numRowsToShiftDown);
+                numRowsToShiftDown = 0;
+            }
+        }
+
+        if(numRowsToShiftDown == 0){
+            return;
+        }
+
+        game.shiftDownRows(lowestRow, numRowsToShiftDown);
+        view.shiftDownRows(lowestRow, numRowsToShiftDown);
+        view.updateScreen();
+        return;
     }
 
     public int getRows(){

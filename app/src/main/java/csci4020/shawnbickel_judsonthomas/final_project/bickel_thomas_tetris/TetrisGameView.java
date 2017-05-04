@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import static android.graphics.BitmapFactory.decodeResource;
@@ -20,7 +21,7 @@ public class TetrisGameView extends View{
         private float y; //y pixel location of block's top side
         private Bitmap blockImg;
 
-        private GraphicBlock(TetrisGameEngine.BlockColor color, int x, int y){
+        private GraphicBlock(TetrisGameEngine.BlockColor color, float x, float y){
             switch(color){
                 case RED: blockImg = redBlockImg; break;
                 case GREEN: blockImg = greenBlockImg; break;
@@ -33,7 +34,7 @@ public class TetrisGameView extends View{
             updatePos(x, y);
         }
 
-        public void updatePos(int x, int y){
+        public void updatePos(float x, float y){
             this.x = x;
             this.y = y;
         }
@@ -247,7 +248,7 @@ public class TetrisGameView extends View{
     * some optimizations to make only portions of the screen get invalidated instead
     * of the entire view*/
     public void updateScreen(){
-        invalidate();
+        postInvalidate();
     }
 
     public boolean isCurrentlyAnimating(){
@@ -270,6 +271,29 @@ public class TetrisGameView extends View{
 
         for(GraphicBlock block : blocksToDraw){
             canvas.drawBitmap(block.blockImg, block.x, block.y, null);
+        }
+    }
+
+    void removeRow(int rowToRemove){
+        int yPixelLocation = rowToRemove * blockImgHeight;
+        Iterator<GraphicBlock> it = blocksToDraw.iterator();
+        while(it.hasNext()){
+            if(it.next().y == yPixelLocation){
+                it.remove();
+            }
+        }
+    }
+
+    void shiftDownRows(int lowestRow, int numRowsToShiftDown){
+        int yPixelLocation = lowestRow * blockImgHeight;
+        Iterator<GraphicBlock> it = blocksToDraw.iterator();
+        GraphicBlock blockToUpdate;
+
+        while(it.hasNext()){
+            blockToUpdate = it.next();
+            if(blockToUpdate.y <= yPixelLocation){
+                blockToUpdate.updatePos(blockToUpdate.x, blockToUpdate.y + numRowsToShiftDown * blockImgHeight);
+            }
         }
     }
 
