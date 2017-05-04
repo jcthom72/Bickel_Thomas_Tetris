@@ -254,6 +254,10 @@ public class TetrisGameEngine {
             this.color = color;
             blocks = new HashSet<Block>(4); //create with an initial capacity of 4
         }
+
+        public void clearBlocks(){
+            blocks.clear();
+        }
     }
 
     public class IShape extends Tetromino{
@@ -518,6 +522,43 @@ public class TetrisGameEngine {
         return tetromino;
     }
 
+    private boolean removeRow(int rowToRemove){
+        if(rowToRemove >= blockMap.numRows || rowToRemove < 0){
+            return false;
+        }
+
+        for(int i = 0; i < blockMap.numCols; i++){
+            if(blockMap.grid[rowToRemove][i] == null){
+                return false;
+            }
+        }
+
+        //row is filled
+        for(int i = 0; i < blockMap.numCols; i++){
+            blockMap.removeBlock_unsafe(blockMap.grid[rowToRemove][i]);
+        }
+
+        /*move down every piece above the removed row*/
+        if(rowToRemove == 0){
+            return true;
+        }
+
+        for(int i = rowToRemove - 1; i < blockMap.numRows; i++){
+            for(int j = 0; j < blockMap.numCols; j++){
+                blockMap.removeBlock_unsafe(blockMap.grid[i][j]);
+                blockMap.grid[i][j].position = blockMap.grid[i][j].position.below();
+            }
+        }
+
+        for(int i = rowToRemove - 1; i < blockMap.numRows; i++){
+            for(int j = 0; j < blockMap.numCols; j++){
+                blockMap.addBlock_unsafe(blockMap.grid[i][j]);
+            }
+        }
+
+        return true;
+    }
+
     private BlockMap blockMap;
 
     public TetrisGameEngine(int numRows, int numCols){
@@ -528,3 +569,4 @@ public class TetrisGameEngine {
 
     public int getNumCols(){return blockMap.numCols;}
 }
+
