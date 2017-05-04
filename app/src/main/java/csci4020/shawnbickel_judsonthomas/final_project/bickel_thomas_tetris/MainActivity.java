@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
+            score++;
+            String s = String.valueOf(score);
+            gameScore.setText(s);
 
         }
 
@@ -74,31 +77,33 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            while (hasSpawned){
                 while(tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)){
                     try{
-                        Thread.sleep(1000);
+                        while(tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)){
+                            Thread.sleep(1000);
+                        }
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                hasSpawned = tetrisGameDriver.nextTetromino();
+
+                            }
+                        });
+
+                        publishProgress();
+                        while(tetrisGameDriver.move(TetrisGameEngine.Direction.DOWN)){
+                            Thread.sleep(1000);
+                        }
                     }catch(NullPointerException e){
                         newGame();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            if ((hasSpawned = tetrisGameDriver.nextTetromino())){
-                                newTetromino();
-                            }
-
-                        }
-                    });
-
                 }
+            }
+
             return null;
         }
 
@@ -212,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         score = 0;
     }
 
-    public void newGame(){
+    public void newGame() {
         final View dialogView = (LayoutInflater.from(this)).inflate(R.layout.dialog, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -220,27 +225,23 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setTitle("Choose to play a new game or quit");
 
-        builder.setPositiveButton("New Game", new DialogInterface.OnClickListener(){
+        builder.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int id){
+            public void onClick(DialogInterface dialog, int id) {
                 scoreReset();
                 hasSpawned = tetrisGameDriver.nextTetromino();
                 updateScore();
             }
         });
 
-        builder.setNegativeButton("Quit", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
+        builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intent);
             }
         });
 
         builder.show();
-    }
-    public void newTetromino(){
-        MainGameThread gameThread = new MainGameThread();
-        gameThread.execute();
     }
 
     @Override

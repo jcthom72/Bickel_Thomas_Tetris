@@ -16,7 +16,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run(){
                 try {
-                    //----DISABLED FOR TESTING sleep(6000); // splash screen displays for 6 seconds; then the menu is displayed to the user
+                    //----DISABLED FOR TESTING sleep(6000); // splash screen displays for 5 seconds; then the menu is displayed to the user
                     sleep(100);
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivity(intent);
